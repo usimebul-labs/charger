@@ -1,4 +1,5 @@
-import { type JSX } from "react";
+import * as React from "react";
+import { cn } from "./lib/utils";
 
 export function Card({
   className,
@@ -10,18 +11,26 @@ export function Card({
   title: string;
   children: React.ReactNode;
   href: string;
-}): JSX.Element {
+}): React.JSX.Element {
   return (
     <a
-      className={className}
-      href={`${href}?utm_source=create-turbo&utm_medium=basic&utm_campaign=create-turbo"`}
+      className={cn(
+        "group flex flex-col justify-between overflow-hidden rounded-xl border bg-card text-card-foreground shadow transition-all hover:bg-accent hover:text-accent-foreground",
+        className
+      )}
+      href={`${href}?utm_source=create-turbo&utm_medium=basic&utm_campaign=create-turbo`}
       rel="noopener noreferrer"
       target="_blank"
     >
-      <h2>
-        {title} <span>-&gt;</span>
-      </h2>
-      <p>{children}</p>
+      <div className="p-6">
+        <h3 className="font-semibold leading-none tracking-tight flex items-center space-x-2">
+          <span>{title}</span>
+          <span className="inline-block transition-transform group-hover:translate-x-1">
+            -&gt;
+          </span>
+        </h3>
+        <p className="text-sm text-muted-foreground mt-2">{children}</p>
+      </div>
     </a>
   );
 }

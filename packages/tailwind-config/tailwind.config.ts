@@ -4,7 +4,7 @@ import type { Config } from "tailwindcss";
 declare function require(moduleName: string): any;
 
 const config: Config = {
-  darkMode: ["class"],
+  darkMode: "class",
   content: [
     "./src/**/*.{ts,tsx}",
     "./app/**/*.{ts,tsx}",
