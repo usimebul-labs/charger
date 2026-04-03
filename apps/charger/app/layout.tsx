@@ -10,6 +10,10 @@ const geistMono = localFont({
   src: "./fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
 });
+const daki = localFont({
+  src: "./fonts/DakiB.woff2",
+  variable: "--font-daki",
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} ${daki.variable}`}>
         {children}
       </body>
     </html>
