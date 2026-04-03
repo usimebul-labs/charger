@@ -29,7 +29,7 @@ export function Card({
             -&gt;
           </span>
         </h3>
-        <p className="text-sm text-muted-foreground mt-2">{children}</p>
+        <div className="text-sm text-muted-foreground mt-2">{children}</div>
       </div>
     </a>
   );
