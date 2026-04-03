@@ -1,0 +1,12 @@
+{
+    "crons": [
+        {
+            "path": "/api/cron/sync-charger-status",
+            "schedule": "*/5 8-17 * * *"
+        },
+        {
+            "path": "/api/cron/sync-charger-status",
+            "schedule": "0 18-23,0-7 * * *"
+        }
+    ]
+}
