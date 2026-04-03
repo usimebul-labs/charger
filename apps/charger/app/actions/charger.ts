@@ -17,7 +17,6 @@ export async function upsertChargers() {
     const chargers = await getChargers("2355");
 
     for (const charger of chargers) {
-        11
         const params = {
             p_id: charger.id,
             p_search_key: charger.searchKey,
