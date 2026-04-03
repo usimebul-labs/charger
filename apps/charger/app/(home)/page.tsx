@@ -160,7 +160,7 @@ export default function Home() {
           <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/5 rounded-full blur-[100px] -mr-32 -mt-32"></div>
 
           <div className="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
-            <div>
+            <div className="w-100">
               <h1 className="font-bold text-white tracking-tight flex flex-col leading-tight">
                 <span className="text-2xl sm:text-2xl text-[#0056FF]">DAOU DIGITAL SQUARE</span>
                 <span className="text-base sm:text-base text-slate-400 mt-1">전기차 충전 현황</span>
