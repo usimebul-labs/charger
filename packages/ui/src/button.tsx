@@ -32,27 +32,19 @@ const buttonVariants = cva(
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
+  VariantProps<typeof buttonVariants> {
   asChild?: boolean;
   appName?: string;
 }
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, appName, onClick, ...props }, ref) => {
+  ({ className, variant, size, asChild = false, appName, ...props }, ref) => {
     const Comp = asChild ? Slot : "button"
-    
-    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-      if (appName) {
-        alert(`Hello from your ${appName} app!`);
-      }
-      onClick?.(e);
-    };
 
     return (
       <Comp
         className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
-        onClick={handleClick}
         {...props}
       />
     )

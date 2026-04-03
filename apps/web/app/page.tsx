@@ -1,5 +1,8 @@
+
+"use client"
+
 import Image, { type ImageProps } from "next/image";
-import { Button } from "@repo/ui";
+import { Button, Card } from "@repo/ui";
 import styles from "./page.module.css";
 
 type Props = Omit<ImageProps, "src"> & {
@@ -31,12 +34,14 @@ export default function Home() {
           height={38}
           priority
         />
-        <ol>
-          <li>
-            Get started by editing <code>apps/web/app/page.tsx</code>
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+        <Card title="Get started by editing apps/web/app/page.tsx" href="https://github.com/vercel/turborepo">
+          <ol>
+            <li>
+              Get started by editing <code>apps/web/app/page.tsx</code>
+            </li>
+            <li>Save and see your changes instantly.</li>
+          </ol>
+        </Card>
 
         <div className={styles.ctas}>
           <a
@@ -63,10 +68,11 @@ export default function Home() {
             Read our docs
           </a>
         </div>
-        <Button appName="web" className={styles.secondary}>
-          Open alert
+        <Button className={styles.secondary} onClick={() => { console.log("") }} asChild >
+          <a onClick={() => { alert("") }}>Open alert</a>
         </Button>
       </main>
+
       <footer className={styles.footer}>
         <a
           href="https://vercel.com/templates?search=turborepo&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
