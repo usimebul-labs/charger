@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { upsertChargers } from "../actions/charger";
+
 
 // --- Types & Data ---
 
@@ -151,9 +153,8 @@ export default function Home() {
 
   const handleRefresh = async () => {
     try {
-      const response = await fetch("/api/chargers");
-      const data = await response.json();
-      console.log("Charger status refreshed:", data);
+      const response = await upsertChargers();
+      console.log("Charger status refreshed:", response);
     } catch (error) {
       console.error("Failed to refresh charger status:", error);
     }

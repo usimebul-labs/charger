@@ -9,5 +9,4 @@ export interface ChargerInfo {
     status: CodeValue;
     type: CodeValue;
     capacity: string;
-    floor: "B3" | "B4" | "B5";
 }
