@@ -144,7 +144,9 @@ export default function Home() {
     return true;
   });
 
-  const availableCount = STATIONS.filter((s) => s.status === "충전 가능").length;
+  const availableSlow = STATIONS.filter((s) => s.type === "완속" && s.status === "충전 가능").length;
+  const availableFast = STATIONS.filter((s) => s.type === "급속" && s.status === "충전 가능").length;
+
   const floors = [3, 4, 5];
 
   return (
@@ -163,8 +165,8 @@ export default function Home() {
                 <span className="text-2xl sm:text-2xl text-[#0056FF]">DAOU DIGITAL SQUARE</span>
                 <span className="text-base sm:text-base text-slate-400 mt-1">전기차 충전 현황</span>
               </h1>
-              <p className="text-xs text-slate-400 font-bold mt-2 uppercase tracking-widest text-right">
-                총 {STATIONS.length}개 중 <span className="text-emerald-400">{availableCount}개</span> 이용 가능
+              <p className="text-[10px] sm:text-xs text-slate-400 font-black mt-2 uppercase tracking-widest text-right">
+                완속 <span className="text-emerald-400">{availableSlow}</span> · 급속 <span className="text-emerald-400">{availableFast}</span> 이용 가능
               </p>
             </div>
           </div>
