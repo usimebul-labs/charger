@@ -2,7 +2,7 @@ import { ChargerInfo } from "@/types/charger";
 
 const BASE_URL = "https://www.humaxcharger.com";
 
-export async function getStationChargers(stationId: string): Promise<ChargerInfo[]> {
+export async function getChargers(stationId: string): Promise<ChargerInfo[]> {
     const url = `${BASE_URL}/user/find/view/${stationId}`;
 
     const response = await fetch(url, {
@@ -14,6 +14,8 @@ export async function getStationChargers(stationId: string): Promise<ChargerInfo
         },
         next: { revalidate: 60, tags: [`station-${stationId}`] }
     });
+
+    console.log(response)
 
     if (!response.ok) {
         throw new Error(`Failed to fetch chargers: ${response.statusText}`);
