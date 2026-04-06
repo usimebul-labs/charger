@@ -48,6 +48,7 @@ export async function getStations() {
         console.error('조회 실패:', error);
         return [];
     }
+
     const mapedData: ChargerInfo[] = data.map((item: any) => ({
         id: item.id,
         searchKey: item.search_key,
