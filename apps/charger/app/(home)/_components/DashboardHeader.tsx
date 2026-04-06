@@ -5,8 +5,13 @@ import { upsertStations } from "@/app/actions/charger";
 export const DashboardHeader = () => {
   const { data: stations, refetch } = useStations();
 
-  const availableSlow = stations?.filter((s) => s.type.code === "02" && s.status.code === "2" || s.status.code === "9").length
-  const availableFast = stations?.filter((s) => s.type.code === "06" && s.status.code === "2" || s.status.code === "9").length
+  const availableSlow = useMemo(() =>
+    stations?.filter((s) => s.type.code === "02" && s.status.code === "2" || s.status.code === "9").length
+    , [stations]);
+
+  const availableFast = useMemo(() =>
+    stations?.filter((s) => s.type.code === "06" && s.status.code === "2" || s.status.code === "9").length
+    , [stations]);
 
   const refresh = async () => {
     await upsertStations();

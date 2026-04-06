@@ -1,5 +1,5 @@
 "use client"
-import { DashboardFilters } from "./_components/DashboardFilters";
+import { DashboardButtons } from "./_components/DashboardButtons";
 import { DashboardHeader } from "./_components/DashboardHeader";
 import { StationGrid } from "./_components/StationGrid";
 
@@ -10,7 +10,7 @@ export default function Home() {
       <div className="w-full max-w-[480px] min-h-screen bg-slate-900 border-x border-slate-800 relative flex flex-col pb-8">
         <DashboardHeader />
         <main className="flex-1 px-6 pt-2">
-          <DashboardFilters />
+          <DashboardButtons />
           <StationGrid />
         </main>
       </div>
