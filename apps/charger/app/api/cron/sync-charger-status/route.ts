@@ -18,22 +18,20 @@ export async function GET(req: Request) {
 
     if (availableFastCount > 0) {
         const { data: fastWaitings } = await supabase
-            .from('charger_waitings')
-            .select('*')
-            .eq('type_code', CHARGER_TYPES.RAPID)
-            .order('created_at', { ascending: true })
-            .limit(availableFastCount);
+            .rpc('pop_charger_waiting', {
+                p_type_code: CHARGER_TYPES.RAPID, // 찾고자 하는 타입 코드
+                p_limit: availableFastCount             // 한 번에 가져올 개수
+            });
 
         if (fastWaitings) waitings = [...waitings, ...fastWaitings];
     }
 
     if (availableSlowCount > 0) {
         const { data: slowWaitings } = await supabase
-            .from('charger_waitings')
-            .select('*')
-            .eq('type_code', CHARGER_TYPES.SLOW)
-            .order('created_at', { ascending: true })
-            .limit(availableSlowCount);
+            .rpc('pop_charger_waiting', {
+                p_type_code: CHARGER_TYPES.SLOW, // 찾고자 하는 타입 코드
+                p_limit: availableSlowCount             // 한 번에 가져올 개수
+            });
 
         if (slowWaitings) waitings = [...waitings, ...slowWaitings];
     }
@@ -43,7 +41,7 @@ export async function GET(req: Request) {
     for (const waiting of waitings) {
         await push(waiting.subscription, {
             title: `${waiting.type_code === CHARGER_TYPES.RAPID ? "급속" : "완속"} 충전 가능 알림`,
-            body: `충전 가능한 스테이션이 생겼어요!\n아래에서 확인해보세요.`
+            body: `충전 가능한 스테이션이 생겼어요!\n확인해보세요`
         });
     }
 

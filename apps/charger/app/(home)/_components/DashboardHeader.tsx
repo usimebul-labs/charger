@@ -20,7 +20,7 @@ export const DashboardHeader = () => {
   }
 
   return (
-    <header className="bg-slate-900/80 border-b border-slate-800/50 sticky top-0 z-50 backdrop-blur-xl px-6 pt-6 pb-2 sm:px-10 overflow-hidden">
+    <header className="bg-slate-900/80 border-b border-slate-800/50 sticky top-0 z-50 backdrop-blur-xl px-6 pt-6 pb-2 sm:px-10 overflow-hidden mb-2">
       {/* Subtle background glow decorator */}
       <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/5 rounded-full blur-[100px] -mr-32 -mt-32"></div>
 
@@ -30,7 +30,7 @@ export const DashboardHeader = () => {
           <span className="text-xs sm:text-sm text-slate-400">전기차 충전 현황</span>
         </h1>
 
-        <div className="flex items-center justify-between border-t border-slate-800/50 pt-4">
+        <div className="flex items-center justify-between pt-4">
           <div className="flex items-center gap-2">
             <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(52,211,153,0.8)]"></div>
             <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Live Status</span>
