@@ -3,12 +3,29 @@
 import { useStationStore } from "@/store/useStationStore";
 import { useStations } from "../_hooks/useStations";
 import { registerWaitings } from "@/app/actions/charger";
-import { useMemo } from "react";
-import { isAvailable } from "../_utils/charger";
+import { useEffect, useMemo, useState } from "react";
+import { isAvailable, urlBase64ToUint8Array } from "../_utils/charger";
 
 export const DashboardButtons = () => {
     const { showOnlyAvailable, toggleShowOnlyAvailable } = useStationStore();
     const { data: stations } = useStations();
+    const [isSupported, setIsSupported] = useState(false);
+    const [isSubscribed, setIsSubscribed] = useState(false);
+
+    useEffect(() => {
+        if ('serviceWorker' in navigator && 'PushManager' in window) {
+            setIsSupported(true);
+            registerServiceWorker();
+        }
+    }, []);
+
+    const registerServiceWorker = async () => {
+        try {
+            await navigator.serviceWorker.register('/sw.js');
+        } catch (error) {
+            console.error('Service Worker 등록 실패:', error);
+        }
+    };
 
     const availableFastCount = useMemo(() =>
         stations?.filter((s) => s.type.code === "06" && isAvailable(s.status.code)).length || 0
@@ -27,7 +44,7 @@ export const DashboardButtons = () => {
         , [stations]);
 
     const handleRegisterNotification = async (type: "02" | "06") => {
-        if (!("serviceWorker" in navigator) || !("PushManager" in window)) {
+        if (!isSupported) {
             alert("이 브라우저는 알림을 지원하지 않습니다.");
             return;
         }
@@ -55,7 +72,7 @@ export const DashboardButtons = () => {
                 });
             }
 
-            await registerWaitings(subscription as any, type);
+            await registerWaitings(subscription.toJSON(), type);
             alert("알림 신청이 완료되었습니다.");
         } catch (error) {
             console.error("Failed to register notification:", error);
@@ -63,16 +80,7 @@ export const DashboardButtons = () => {
         }
     };
 
-    function urlBase64ToUint8Array(base64String: string) {
-        const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
-        const base64 = (base64String + padding).replace(/-/g, "+").replace(/_/g, "/");
-        const rawData = window.atob(base64);
-        const outputArray = new Uint8Array(rawData.length);
-        for (let i = 0; i < rawData.length; ++i) {
-            outputArray[i] = rawData.charCodeAt(i);
-        }
-        return outputArray;
-    }
+
 
     return (
         <div className="flex items-center justify-between gap-2 mb-4">

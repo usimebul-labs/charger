@@ -63,7 +63,7 @@ export async function getStations() {
 }
 
 
-export async function registerWaitings(subscription: PushSubscription, typeCode: string) {
+export async function registerWaitings(subscription: PushSubscriptionJSON, typeCode: string) {
     const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
 
