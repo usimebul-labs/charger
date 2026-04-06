@@ -1,7 +1,7 @@
 {
-    "name": "내 Next.js PWA 앱",
-    "short_name": "NextPWA",
-    "description": "Next.js로 만든 PWA입니다.",
+    "name": "다우디지털스퀘어 전기차 충전 현황",
+    "short_name": "DaouCharger",
+    "description": "다우디지털스퀘어 전기차 충전 현황",
     "start_url": "/",
     "display": "standalone",
     "background_color": "#ffffff",

@@ -11,6 +11,13 @@ export function urlBase64ToUint8Array(base64String: string) {
     return outputArray;
 }
 
+export const isStandalone = () => {
+    return (
+        window.matchMedia('(display-mode: standalone)').matches ||
+        document.referrer.includes('android-app://')
+    );
+};
+
 export const isAvailable = (statusCode: string) => {
     return ["2", "8", "9"].includes(statusCode);
 };

@@ -10,9 +10,15 @@ export const DashboardButtons = () => {
     const { showOnlyAvailable, toggleShowOnlyAvailable } = useStationStore();
     const { data: stations } = useStations();
     const [isSupported, setIsSupported] = useState(false);
-    const [isSubscribed, setIsSubscribed] = useState(false);
+    const [isPWA, setIsPWA] = useState(false);
+    const [isIOS, setIsIOS] = useState(false);
+
 
     useEffect(() => {
+        const userAgent = window.navigator.userAgent.toLowerCase();
+        setIsIOS(/iphone|ipad|ipod/.test(userAgent));
+        setIsPWA(window.matchMedia('(display-mode: standalone)').matches);
+
         if ('serviceWorker' in navigator && 'PushManager' in window) {
             setIsSupported(true);
             registerServiceWorker();
