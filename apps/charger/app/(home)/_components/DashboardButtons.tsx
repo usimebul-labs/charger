@@ -4,17 +4,18 @@ import { useStationStore } from "@/store/useStationStore";
 import { useStations } from "../_hooks/useStations";
 import { registerWaitings } from "@/app/actions/charger";
 import { useMemo } from "react";
+import { isAvailable } from "../_utils/charger";
 
 export const DashboardButtons = () => {
     const { showOnlyAvailable, toggleShowOnlyAvailable } = useStationStore();
     const { data: stations } = useStations();
 
     const availableFastCount = useMemo(() =>
-        stations?.filter((s) => s.type.code === "06" && (s.status.code === "2" || s.status.code === "9")).length || 0
+        stations?.filter((s) => s.type.code === "06" && isAvailable(s.status.code)).length || 0
         , [stations]);
 
     const availableSlowCount = useMemo(() =>
-        stations?.filter((s) => (s.type.code === "01" || s.type.code === "02") && (s.status.code === "2" || s.status.code === "9")).length || 0
+        stations?.filter((s) => s.type.code === "02" && isAvailable(s.status.code)).length || 0
         , [stations]);
 
     const hasFastCharger = useMemo(() =>
@@ -22,10 +23,10 @@ export const DashboardButtons = () => {
         , [stations]);
 
     const hasSlowCharger = useMemo(() =>
-        stations?.some((s) => s.type.code === "01" || s.type.code === "02") || false
+        stations?.some((s) => s.type.code === "02") || false
         , [stations]);
 
-    const handleRegisterNotification = async (type: "01" | "02" | "06") => {
+    const handleRegisterNotification = async (type: "02" | "06") => {
         if (!("serviceWorker" in navigator) || !("PushManager" in window)) {
             alert("이 브라우저는 알림을 지원하지 않습니다.");
             return;

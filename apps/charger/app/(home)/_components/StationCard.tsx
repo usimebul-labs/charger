@@ -1,5 +1,6 @@
 import { ChargerInfo } from "../../../types/charger";
 import { StatusBadge } from "./StatusBadge";
+import { isAvailable } from "../_utils/charger";
 
 interface StationCardProps {
   station: ChargerInfo;
@@ -7,7 +8,7 @@ interface StationCardProps {
 
 export const StationCard = ({ station }: StationCardProps) => {
   const isRapid = station.type.code === "06";
-  const isAvailable = station.status.code === "9" || station.status.code === "2";
+  const isAvailableStatus = isAvailable(station.status.code);
 
   const typeConfig: Record<string, { accent: string; bg: string; border: string; glow: string }> = {
     "06": {
@@ -28,7 +29,7 @@ export const StationCard = ({ station }: StationCardProps) => {
 
   return (
     <div className={`relative bg-slate-800/40 rounded-2xl p-3 sm:p-4 border backdrop-blur-3xl transition-all duration-500 overflow-hidden group flex flex-col items-center text-center
-      ${isAvailable
+      ${isAvailableStatus
         ? `border-emerald-500/40 bg-gradient-to-br ${currentType!.bg} shadow-[0_0_30px_-10px_rgba(52,211,153,0.2)] animate-in fade-in duration-1000`
         : `border-slate-800 hover:border-slate-700`
       }

@@ -1,16 +1,17 @@
 import React, { useMemo } from "react";
 import { useStations } from "../_hooks/useStations";
 import { upsertStations } from "@/app/actions/charger";
+import { isAvailable } from "../_utils/charger";
 
 export const DashboardHeader = () => {
   const { data: stations, refetch } = useStations();
 
   const availableSlow = useMemo(() =>
-    stations?.filter((s) => s.type.code === "02" && s.status.code === "2" || s.status.code === "9").length
+    stations?.filter((s) => s.type.code === "02" && isAvailable(s.status.code)).length
     , [stations]);
 
   const availableFast = useMemo(() =>
-    stations?.filter((s) => s.type.code === "06" && s.status.code === "2" || s.status.code === "9").length
+    stations?.filter((s) => s.type.code === "06" && isAvailable(s.status.code)).length
     , [stations]);
 
   const refresh = async () => {

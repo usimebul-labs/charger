@@ -2,7 +2,7 @@ import { useStationStore } from "@/store/useStationStore";
 import { useStations } from "../_hooks/useStations";
 import { StationCard } from "./StationCard";
 import { EmptyState } from "./EmptyState";
-
+import { isAvailable } from "../_utils/charger";
 
 const floors = ["B3", "B4", "B5"];
 export const StationGrid = () => {
@@ -13,7 +13,7 @@ export const StationGrid = () => {
   if (!stations) return <div>Error...</div>;
 
   const filteredStations = stations.filter((s) => {
-    if (showOnlyAvailable) return s.status.code === "2" || s.status.code === "9";
+    if (showOnlyAvailable) return isAvailable(s.status.code);
     return true;
   });
 
