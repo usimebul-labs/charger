@@ -19,14 +19,14 @@ export const DashboardHeader = () => {
   }
 
   return (
-    <header className="bg-slate-900/80 border-b border-slate-800/50 sticky top-0 z-50 backdrop-blur-xl px-6 pt-6 pb-6 sm:px-10">
+    <header className="bg-slate-900/80 border-b border-slate-800/50 sticky top-0 z-50 backdrop-blur-xl px-6 pt-6 pb-2 sm:px-10 overflow-hidden">
       {/* Subtle background glow decorator */}
       <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/5 rounded-full blur-[100px] -mr-32 -mt-32"></div>
 
-      <div className="relative flex flex-col gap-4">
-        <h1 className="font-bold text-white tracking-tight flex flex-col leading-tight">
-          <span className="text-2xl sm:text-2xl text-[#0056FF]">DAOU DIGITAL SQUARE</span>
-          <span className="text-base sm:text-base text-slate-400 mt-1">전기차 충전 현황</span>
+      <div className="relative flex flex-col">
+        <h1 className="font-bold text-white tracking-tight flex flex-row justify-between items-end leading-tight">
+          <span className="text-xl sm:text-2xl text-[#0056FF]">DAOU DIGITAL SQUARE</span>
+          <span className="text-xs sm:text-sm text-slate-400">전기차 충전 현황</span>
         </h1>
 
         <div className="flex items-center justify-between border-t border-slate-800/50 pt-4">

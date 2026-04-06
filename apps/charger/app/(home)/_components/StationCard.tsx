@@ -27,7 +27,7 @@ export const StationCard = ({ station }: StationCardProps) => {
   let currentType = typeConfig[station.type.code];
 
   return (
-    <div className={`relative bg-slate-800/40 rounded-2xl p-6 sm:p-4 border backdrop-blur-3xl transition-all duration-500 overflow-hidden group flex flex-col items-center text-center
+    <div className={`relative bg-slate-800/40 rounded-2xl p-3 sm:p-4 border backdrop-blur-3xl transition-all duration-500 overflow-hidden group flex flex-col items-center text-center
       ${isAvailable
         ? `border-emerald-500/40 bg-gradient-to-br ${currentType!.bg} shadow-[0_0_30px_-10px_rgba(52,211,153,0.2)] animate-in fade-in duration-1000`
         : `border-slate-800 hover:border-slate-700`
@@ -50,7 +50,7 @@ export const StationCard = ({ station }: StationCardProps) => {
       </div>
 
       <div className="flex flex-col items-center gap-3 relative z-10">
-        <div className={`relative p-5 sm:p-6 rounded-2xl bg-slate-900/40 border-2 ${currentType!.border} ${currentType!.accent} shadow-2xl backdrop-blur-sm group-hover:scale-110 transition-all duration-500
+        <div className={`relative p-3 sm:p-4 rounded-2xl bg-slate-900/40 border-2 ${currentType!.border} ${currentType!.accent} shadow-2xl backdrop-blur-sm group-hover:scale-110 transition-all duration-500
           ${isRapid ? 'shadow-amber-500/10' : 'shadow-sky-500/10'}
         `}>
           {/* Subtle glow behind the icon */}
