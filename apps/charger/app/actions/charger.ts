@@ -61,3 +61,11 @@ export async function getStations() {
 
     return mapedData;
 }
+
+
+export async function registerWaitings(subscription: PushSubscription) {
+    const cookieStore = await cookies();
+    const supabase = createClient(cookieStore);
+
+
+}
