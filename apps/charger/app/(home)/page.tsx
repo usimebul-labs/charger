@@ -32,11 +32,10 @@ export default function Home() {
             setShowOnlyAvailable={setShowOnlyAvailable}
           />
 
-          {filteredStations.length > 0 ? (
-            <StationGrid />
-          ) : (
+          {filteredStations.length > 0 ?
+            <StationGrid /> :
             <EmptyState onReset={() => setShowOnlyAvailable(false)} />
-          )}
+          }
         </main>
       </div>
     </div>

@@ -9,17 +9,17 @@ export const useChargerDashboard = () => {
 
   const filteredStations = useMemo(() => {
     return STATIONS.filter((s) => {
-      if (showOnlyAvailable) return s.status.value === "충전 가능";
+      if (showOnlyAvailable) return s.status.code === "2" || s.status.code === "9";
       return true;
     });
   }, [showOnlyAvailable]);
 
   const availableSlow = useMemo(() =>
-    STATIONS.filter((s) => s.type.value === "완속" && s.status.value === "충전 가능").length
+    STATIONS.filter((s) => s.type.code === "02" && s.status.code === "2" || s.status.code === "9").length
     , []);
 
   const availableFast = useMemo(() =>
-    STATIONS.filter((s) => s.type.value === "급속" && s.status.value === "충전 가능").length
+    STATIONS.filter((s) => s.type.code === "06" && s.status.code === "2" || s.status.code === "9").length
     , []);
 
   const handleRefresh = async () => {

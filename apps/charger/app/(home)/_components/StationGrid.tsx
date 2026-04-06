@@ -18,7 +18,6 @@ export const StationGrid = () => {
   if (isLoading) return <div>Loading...</div>;
   if (!stations) return <div>Error...</div>;
 
-  console.log(stations);
 
   return (
     <div className="space-y-4">

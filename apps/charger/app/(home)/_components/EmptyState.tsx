@@ -15,11 +15,11 @@ export const EmptyState = ({ onReset }: EmptyStateProps) => {
           </svg>
         </div>
       </div>
-      <h3 className="text-xl font-black text-white tracking-tight">검색 결과가 없습니다</h3>
-      <p className="text-slate-500 text-sm mt-2 font-medium">필터를 변경하여 다른 스테이션을 확인해 보세요.</p>
+      <h3 className="text-xl font-black text-white tracking-tight">충전 가능한 스테이션이 없습니다.</h3>
+      <p className="text-slate-500 text-sm mt-2 font-medium">충전 대기를 등록하시겠습니까?</p>
       <button
         onClick={onReset}
-        className="mt-8 px-6 py-2.5 rounded-full border border-slate-700 text-xs font-black tracking-widest uppercase hover:bg-slate-800 transition-colors"
+        className="mt-8 px-6 py-2.5 rounded-full border border-slate-700 text-slate-300 tracking-widest uppercase hover:bg-slate-800 transition-colors"
       >
         전체 보기
       </button>
