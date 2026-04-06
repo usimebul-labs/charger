@@ -58,11 +58,11 @@ export const StationCard = ({ station }: StationCardProps) => {
 
           <div className="relative z-10">
             {isRapid ? (
-              <svg className="w-10 h-10 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M13 10V3L4 14h7v7l9-11h-7z" />
               </svg>
             ) : (
-              <svg className="w-10 h-10 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M18 10V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h1v4h-2c-1.1 0-2 .9-2 2v2h14v-2c0-1.1-.9-2-2-2h-2v-4h1c1.1 0 2-.9 2-2z" />
               </svg>
             )}
