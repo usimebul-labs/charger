@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getChargers } from "@/services/chargerService";
+import { getHumaxChargers } from "@/services/humaxService";
 
 export async function GET(request: NextRequest) {
-    const chargers = await getChargers("2355");
+    const chargers = await getHumaxChargers("2355");
     return NextResponse.json(chargers);
 }

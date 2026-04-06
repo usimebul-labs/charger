@@ -1,13 +1,25 @@
 import React from "react";
-import { Station } from "./types";
+import { ChargerInfo } from "../../../types/charger";
 import { StationCard } from "./StationCard";
+import { useQuery } from "@tanstack/react-query";
+import { getStations } from "@/app/actions/charger";
 
-interface StationGridProps {
-  floors: number[];
-  stations: Station[];
-}
 
-export const StationGrid = ({ floors, stations }: StationGridProps) => {
+const floors = ["B3", "B4", "B5"];
+export const StationGrid = () => {
+  const { data: stations, isLoading } = useQuery({
+    queryKey: ['latest-data'],
+    queryFn: () => getStations(), // 서버 액션 호출
+    refetchInterval: 5000, // 5초마다 주기적 호출
+    refetchIntervalInBackground: true, // 탭이 비활성 상태일 때도 호출
+  });
+
+
+  if (isLoading) return <div>Loading...</div>;
+  if (!stations) return <div>Error...</div>;
+
+  console.log(stations);
+
   return (
     <div className="space-y-4">
       {floors.map((floor) => {
@@ -24,7 +36,7 @@ export const StationGrid = ({ floors, stations }: StationGridProps) => {
             {/* 3 Columns Layout (grid-cols-3) */}
             <div className="grid grid-cols-3 gap-2 sm:gap-6">
               {floorStations.map((station) => (
-                <StationCard key={station.id} station={station} />
+                <StationCard key={station.id} charger={station} />
               ))}
             </div>
           </section>

@@ -2,7 +2,7 @@ import { ChargerInfo } from "@/types/charger";
 
 const BASE_URL = "https://www.humaxcharger.com";
 
-export async function getChargers(stationId: string): Promise<ChargerInfo[]> {
+export async function getHumaxChargers(stationId: string): Promise<ChargerInfo[]> {
     const url = `${BASE_URL}/user/find/view/${stationId}`;
 
     const response = await fetch(url, {

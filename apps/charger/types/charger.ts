@@ -1,6 +1,8 @@
+import { Interface } from "readline";
+
 export interface CodeValue {
-    code: string;
-    value: string;
+    code: any;
+    value: any;
 }
 
 export interface ChargerInfo {
@@ -9,4 +11,5 @@ export interface ChargerInfo {
     status: CodeValue;
     type: CodeValue;
     capacity: string;
+    floor: "B3" | "B4" | "B5";
 }

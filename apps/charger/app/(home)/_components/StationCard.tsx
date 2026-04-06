@@ -1,16 +1,16 @@
 import React from "react";
-import { Station } from "./types";
+import { ChargerInfo } from "../../../types/charger";
 import { StatusBadge } from "./StatusBadge";
 
 interface StationCardProps {
-  station: Station;
+  charger: ChargerInfo;
 }
 
-export const StationCard = ({ station }: StationCardProps) => {
-  const isRapid = station.type === "급속";
-  const isAvailable = station.status === "충전 가능";
+export const StationCard = ({ charger }: StationCardProps) => {
+  const isRapid = charger.type.value === "급속";
+  const isAvailable = charger.status.value === "충전 가능";
 
-  const typeConfig = {
+  const typeConfig: Record<string, { accent: string; bg: string; border: string; glow: string }> = {
     "급속": {
       accent: "text-amber-400",
       bg: "from-amber-500/10 to-transparent",
@@ -25,18 +25,19 @@ export const StationCard = ({ station }: StationCardProps) => {
     }
   };
 
-  const currentType = typeConfig[station.type];
+  let currentType = typeConfig[charger.type.value];
+  if (!currentType) currentType = typeConfig["급속"];
 
   return (
     <div className={`relative bg-slate-800/40 rounded-2xl p-6 sm:p-4 border backdrop-blur-3xl transition-all duration-500 overflow-hidden group flex flex-col items-center text-center
       ${isAvailable
-        ? `border-emerald-500/40 bg-gradient-to-br ${currentType.bg} shadow-[0_0_30px_-10px_rgba(52,211,153,0.2)] animate-in fade-in duration-1000`
+        ? `border-emerald-500/40 bg-gradient-to-br ${currentType!.bg} shadow-[0_0_30px_-10px_rgba(52,211,153,0.2)] animate-in fade-in duration-1000`
         : `border-slate-800 hover:border-slate-700`
       }
       hover:translate-y-[-6px] hover:shadow-2xl shadow-black/40
     `}>
       {/* Themed Background Decoration */}
-      <div className={`absolute -top-10 -right-10 w-32 h-32 opacity-20 pointer-events-none transition-all duration-700 group-hover:scale-125 group-hover:opacity-30 ${currentType.accent}`}>
+      <div className={`absolute -top-10 -right-10 w-32 h-32 opacity-20 pointer-events-none transition-all duration-700 group-hover:scale-125 group-hover:opacity-30 ${currentType!.accent}`}>
         {isRapid ? (
           <svg fill="currentColor" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
         ) : (
@@ -46,12 +47,12 @@ export const StationCard = ({ station }: StationCardProps) => {
 
       <div className="flex flex-col items-center mb-2 relative z-10 w-full gap-1">
         <span className="text-[10px] sm:text-[11px] font-bold text-slate-100 tracking-widest uppercase opacity-70">
-          ID {station.id}
+          ID {charger.searchKey}
         </span>
       </div>
 
       <div className="flex flex-col items-center gap-3 relative z-10">
-        <div className={`relative p-5 sm:p-6 rounded-2xl bg-slate-900/40 border-2 ${currentType.border} ${currentType.accent} shadow-2xl backdrop-blur-sm group-hover:scale-110 transition-all duration-500
+        <div className={`relative p-5 sm:p-6 rounded-2xl bg-slate-900/40 border-2 ${currentType!.border} ${currentType!.accent} shadow-2xl backdrop-blur-sm group-hover:scale-110 transition-all duration-500
           ${isRapid ? 'shadow-amber-500/10' : 'shadow-sky-500/10'}
         `}>
           {/* Subtle glow behind the icon */}
@@ -70,7 +71,7 @@ export const StationCard = ({ station }: StationCardProps) => {
           </div>
         </div>
 
-        <StatusBadge status={station.status} />
+        <StatusBadge status={charger.status} />
       </div>
     </div>
   );

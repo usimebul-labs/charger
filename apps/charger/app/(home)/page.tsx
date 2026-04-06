@@ -1,6 +1,5 @@
-"use client";
+"use client"
 
-import { FLOORS } from "./_components/constants";
 import { DashboardHeader } from "./_components/DashboardHeader";
 import { DashboardFilters } from "./_components/DashboardFilters";
 import { StationGrid } from "./_components/StationGrid";
@@ -34,7 +33,7 @@ export default function Home() {
           />
 
           {filteredStations.length > 0 ? (
-            <StationGrid floors={FLOORS} stations={filteredStations} />
+            <StationGrid />
           ) : (
             <EmptyState onReset={() => setShowOnlyAvailable(false)} />
           )}
