@@ -1,8 +1,6 @@
-import { Interface } from "readline";
-
 export interface CodeValue {
-    code: any;
-    value: any;
+    code: string;
+    value: string;
 }
 
 export interface ChargerInfo {

@@ -1,4 +1,3 @@
-import React from "react";
 import { ChargerInfo } from "../../../types/charger";
 import { StatusBadge } from "./StatusBadge";
 

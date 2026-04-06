@@ -45,21 +45,17 @@ export async function getStations() {
         .select(`id, search_key, capacity, floor, charger_statuses (code, value), charger_types (code, value)`)
         .order('id', { ascending: true }); // ID 순 정렬
 
-
-
     if (error) {
         console.error('조회 실패:', error);
         return [];
     }
-
-
-    const mapedData = data.map((item) => ({
+    const mapedData: ChargerInfo[] = data.map((item: any) => ({
         id: item.id,
         searchKey: item.search_key,
         capacity: item.capacity,
         floor: item.floor,
-        status: item.charger_statuses,
-        type: item.charger_types,
+        status: item.charger_statuses[0],
+        type: item.charger_types[0],
     }));
 
 

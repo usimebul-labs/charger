@@ -1,4 +1,3 @@
-import React from "react";
 import { CodeValue } from "../../../types/charger";
 
 interface StatusBadgeProps {

@@ -1,8 +1,6 @@
-import React from "react";
-import { ChargerInfo } from "../../../types/charger";
-import { StationCard } from "./StationCard";
-import { useQuery } from "@tanstack/react-query";
 import { getStations } from "@/app/actions/charger";
+import { useQuery } from "@tanstack/react-query";
+import { StationCard } from "./StationCard";
 
 
 const floors = ["B3", "B4", "B5"];
