@@ -3,21 +3,23 @@ import { ChargerInfo } from "../../../types/charger";
 import { StatusBadge } from "./StatusBadge";
 
 interface StationCardProps {
-  charger: ChargerInfo;
+  station: ChargerInfo;
 }
 
-export const StationCard = ({ charger }: StationCardProps) => {
-  const isRapid = charger.type.value === "급속";
-  const isAvailable = charger.status.value === "충전 가능";
+export const StationCard = ({ station }: StationCardProps) => {
+
+  console.log(station.type.code, station.status.code, station.status.value)
+  const isRapid = station.type.code === "06";
+  const isAvailable = station.status.code === "9" || station.status.code === "2";
 
   const typeConfig: Record<string, { accent: string; bg: string; border: string; glow: string }> = {
-    "급속": {
+    "06": {
       accent: "text-amber-400",
       bg: "from-amber-500/10 to-transparent",
       border: "border-amber-500/20",
       glow: "shadow-amber-500/5",
     },
-    "완속": {
+    "02": {
       accent: "text-sky-400",
       bg: "from-sky-500/10 to-transparent",
       border: "border-sky-500/20",
@@ -25,8 +27,7 @@ export const StationCard = ({ charger }: StationCardProps) => {
     }
   };
 
-  let currentType = typeConfig[charger.type.value];
-  if (!currentType) currentType = typeConfig["급속"];
+  let currentType = typeConfig[station.type.code];
 
   return (
     <div className={`relative bg-slate-800/40 rounded-2xl p-6 sm:p-4 border backdrop-blur-3xl transition-all duration-500 overflow-hidden group flex flex-col items-center text-center
@@ -47,7 +48,7 @@ export const StationCard = ({ charger }: StationCardProps) => {
 
       <div className="flex flex-col items-center mb-2 relative z-10 w-full gap-1">
         <span className="text-[10px] sm:text-[11px] font-bold text-slate-100 tracking-widest uppercase opacity-70">
-          ID {charger.searchKey}
+          ID {station.searchKey}
         </span>
       </div>
 
@@ -71,7 +72,7 @@ export const StationCard = ({ charger }: StationCardProps) => {
           </div>
         </div>
 
-        <StatusBadge status={charger.status} />
+        <StatusBadge status={station.status} />
       </div>
     </div>
   );
