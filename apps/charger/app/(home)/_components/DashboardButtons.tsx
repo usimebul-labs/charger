@@ -93,7 +93,7 @@ export const DashboardButtons = () => {
 
                 <button
                     onClick={() => handleRegisterNotification("02")}
-                    disabled={!hasSlowCharger || availableSlowCount > 0}
+                    // disabled={!hasSlowCharger || availableSlowCount > 0}
                     className={`flex items-center gap-2 px-3 py-1.5 rounded-2xl text-[10px] font-black tracking-widest uppercase transition-all duration-300 border
                         ${hasSlowCharger && availableSlowCount === 0
                             ? "bg-sky-500/10 text-sky-500 border-sky-500/30 shadow-[0_0_20px_-5px_rgba(14,165,233,0.2)] active:scale-95"
