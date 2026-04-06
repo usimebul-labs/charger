@@ -14,4 +14,4 @@ export async function push(subscription: PushSubscriptionJSON, message: PushMess
     } catch (error) {
         console.error("푸시 전송 실패:", error);
     }
-}
+} 
