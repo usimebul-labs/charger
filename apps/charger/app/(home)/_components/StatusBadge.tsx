@@ -17,7 +17,7 @@ export const StatusBadge = ({ status }: StatusBadgeProps) => {
 
   return (
     <div className="flex items-center gap-2">
-      <span className={`flex items-center gap-1.5 px-2 sm:px-3 py-1 rounded-full text-[9px] sm:text-[11px] font-black border tracking-wider uppercase transition-all ${colors[status.code] || colors["점검 중"]}`}>
+      <span className={`flex items-center gap-1.5 px-2 sm:px-3 py-1 rounded-full text-[9px] sm:text-[11px] font-black border tracking-wider truncate uppercase transition-all ${colors[status.code] || colors["점검 중"]}`}>
         {(isAvailable || isCharging) && (
           <span className={`w-1.5 h-1.5 rounded-full ${isAvailable ? "bg-emerald-400 animate-pulse shadow-[0_0_8px_rgba(52,211,153,0.8)]" : "bg-blue-400 shadow-[0_0_8px_rgba(96,165,250,0.8)]"}`}></span>
         )}

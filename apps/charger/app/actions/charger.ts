@@ -30,8 +30,7 @@ export async function upsertStations() {
         }
 
         const { error } = await supabase.rpc('upsert_charger_info', params);
-
-        throw error;
+        if (error) throw error;
     }
 
     return chargers;
@@ -54,8 +53,8 @@ export async function getStations() {
         searchKey: item.search_key,
         capacity: item.capacity,
         floor: item.floor,
-        status: item.charger_statuses[0],
-        type: item.charger_types[0],
+        status: item.charger_statuses,
+        type: item.charger_types,
     }));
 
 

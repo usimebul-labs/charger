@@ -1,12 +1,23 @@
-import React from "react";
+import React, { useMemo } from "react";
+import { useStations } from "../_hooks/useStations";
+import { upsertStations } from "@/app/actions/charger";
 
-interface DashboardHeaderProps {
-  availableSlow: number;
-  availableFast: number;
-  onRefresh: () => Promise<void>;
-}
+export const DashboardHeader = () => {
+  const { data: stations, refetch } = useStations();
 
-export const DashboardHeader = ({ availableSlow, availableFast, onRefresh }: DashboardHeaderProps) => {
+  const availableSlow = useMemo(() =>
+    stations?.filter((s) => s.type.code === "02" && s.status.code === "2" || s.status.code === "9").length
+    , []);
+
+  const availableFast = useMemo(() =>
+    stations?.filter((s) => s.type.code === "06" && s.status.code === "2" || s.status.code === "9").length
+    , []);
+
+  const refresh = async () => {
+    await upsertStations();
+    refetch();
+  }
+
   return (
     <header className="bg-slate-900/80 border-b border-slate-800/50 sticky top-0 z-50 backdrop-blur-xl px-6 pt-6 pb-6 sm:px-10">
       {/* Subtle background glow decorator */}
@@ -28,7 +39,7 @@ export const DashboardHeader = ({ availableSlow, availableFast, onRefresh }: Das
               완속 <span className="text-emerald-400">{availableSlow}</span> · 급속 <span className="text-emerald-400">{availableFast}</span> 이용 가능
             </p>
             <button
-              onClick={onRefresh}
+              onClick={refresh}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 transition-all duration-300 active:scale-95 group"
             >
               <svg className="w-3.5 h-3.5 group-active:rotate-180 transition-transform duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">

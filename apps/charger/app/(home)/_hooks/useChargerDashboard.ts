@@ -1,11 +1,12 @@
 "use client"
 
-import { useState, useMemo } from "react";
+import { useMemo } from "react";
 import { getStations } from "../../actions/charger";
 import { STATIONS } from "../_components/constants";
+import { useStationStore } from "@/store/useStationStore";
 
 export const useChargerDashboard = () => {
-  const [showOnlyAvailable, setShowOnlyAvailable] = useState(false);
+  const { showOnlyAvailable, setShowOnlyAvailable } = useStationStore();
 
   const filteredStations = useMemo(() => {
     return STATIONS.filter((s) => {

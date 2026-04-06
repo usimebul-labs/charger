@@ -1,26 +1,28 @@
-import { getStations } from "@/app/actions/charger";
-import { useQuery } from "@tanstack/react-query";
+import { useStationStore } from "@/store/useStationStore";
+import { useStations } from "../_hooks/useStations";
 import { StationCard } from "./StationCard";
+import { EmptyState } from "./EmptyState";
 
 
 const floors = ["B3", "B4", "B5"];
 export const StationGrid = () => {
-  const { data: stations, isLoading } = useQuery({
-    queryKey: ['latest-data'],
-    queryFn: () => getStations(), // 서버 액션 호출
-    refetchInterval: 5000, // 5초마다 주기적 호출
-    refetchIntervalInBackground: true, // 탭이 비활성 상태일 때도 호출
-  });
-
+  const { showOnlyAvailable } = useStationStore();
+  const { data: stations, isLoading } = useStations();
 
   if (isLoading) return <div>Loading...</div>;
   if (!stations) return <div>Error...</div>;
 
+  const filteredStations = stations.filter((s) => {
+    if (showOnlyAvailable) return s.status.code === "2" || s.status.code === "9";
+    return true;
+  });
+
+  if (filteredStations.length === 0) return <EmptyState />
 
   return (
     <div className="space-y-4">
       {floors.map((floor) => {
-        const floorStations = stations.filter((s) => s.floor === floor);
+        const floorStations = filteredStations.filter((s) => s.floor === floor);
         if (floorStations.length === 0) return null;
 
         return (

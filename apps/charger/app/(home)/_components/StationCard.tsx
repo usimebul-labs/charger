@@ -6,8 +6,6 @@ interface StationCardProps {
 }
 
 export const StationCard = ({ station }: StationCardProps) => {
-
-  console.log(station.type.code, station.status.code, station.status.value)
   const isRapid = station.type.code === "06";
   const isAvailable = station.status.code === "9" || station.status.code === "2";
 
