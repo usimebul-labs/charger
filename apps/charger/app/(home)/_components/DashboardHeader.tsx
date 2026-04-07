@@ -36,7 +36,6 @@ export const DashboardHeader = () => {
               priority
             />
           </div>
-          <span className="text-xs sm:text-sm text-gray-400">전기차 충전 현황</span>
         </h1>
 
         <div className="flex items-center justify-between pt-4">
