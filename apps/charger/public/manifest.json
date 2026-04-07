@@ -4,8 +4,8 @@
     "description": "다우디지털스퀘어 전기차 충전 현황",
     "start_url": "/",
     "display": "standalone",
-    "background_color": "#ffffff",
-    "theme_color": "#000000",
+    "background_color": "#0f172a",
+    "theme_color": "#0f172a",
     "icons": [
         {
             "src": "/icons/icon-192x192.png",
