@@ -12,26 +12,26 @@ export const StationCard = ({ station }: StationCardProps) => {
 
   const typeConfig: Record<string, { accent: string; bg: string; border: string; glow: string }> = {
     "06": {
-      accent: "text-amber-400",
-      bg: "from-amber-500/10 to-transparent",
-      border: "border-amber-500/20",
-      glow: "shadow-amber-500/5",
+      accent: "text-warning-400",
+      bg: "from-warning-500/10 to-transparent",
+      border: "border-warning-500/20",
+      glow: "shadow-warning-500/5",
     },
     "02": {
-      accent: "text-sky-400",
-      bg: "from-sky-500/10 to-transparent",
-      border: "border-sky-500/20",
-      glow: "shadow-sky-500/5",
+      accent: "text-secondary-blue-400",
+      bg: "from-secondary-blue-500/10 to-transparent",
+      border: "border-secondary-blue-500/20",
+      glow: "shadow-secondary-blue-500/5",
     }
   };
 
   let currentType = typeConfig[station.type.code];
 
   return (
-    <div className={`relative bg-slate-800/40 rounded-2xl p-3 sm:p-4 border backdrop-blur-3xl transition-all duration-500 overflow-hidden group flex flex-col items-center text-center
+    <div className={`relative bg-gray-800/40 rounded-2xl p-3 sm:p-4 border backdrop-blur-3xl transition-all duration-500 overflow-hidden group flex flex-col items-center text-center
       ${isAvailableStatus
-        ? `border-emerald-500/40 bg-gradient-to-br ${currentType!.bg} shadow-[0_0_30px_-10px_rgba(52,211,153,0.2)] animate-in fade-in duration-1000`
-        : `border-slate-800 hover:border-slate-700`
+        ? `border-success-500/40 bg-gradient-to-br ${currentType!.bg} shadow-[0_0_30px_-10px_rgba(0,242,38,0.2)] animate-in fade-in duration-1000`
+        : `border-gray-800 hover:border-gray-700`
       }
       hover:translate-y-[-6px] hover:shadow-2xl shadow-black/40
     `}>
@@ -45,17 +45,17 @@ export const StationCard = ({ station }: StationCardProps) => {
       </div>
 
       <div className="flex flex-col items-center mb-2 relative z-10 w-full gap-1">
-        <span className="text-[10px] sm:text-[11px] font-bold text-slate-100 tracking-widest uppercase opacity-70">
+        <span className="text-[10px] sm:text-[11px] font-bold text-gray-100 tracking-widest uppercase opacity-70">
           ID {station.searchKey}
         </span>
       </div>
 
       <div className="flex flex-col items-center gap-3 relative z-10">
-        <div className={`relative p-3 sm:p-4 rounded-2xl bg-slate-900/40 border-2 ${currentType!.border} ${currentType!.accent} shadow-2xl backdrop-blur-sm group-hover:scale-110 transition-all duration-500
-          ${isRapid ? 'shadow-amber-500/10' : 'shadow-sky-500/10'}
+        <div className={`relative p-3 sm:p-4 rounded-2xl bg-gray-900/40 border-2 ${currentType!.border} ${currentType!.accent} shadow-2xl backdrop-blur-sm group-hover:scale-110 transition-all duration-500
+          ${isRapid ? 'shadow-warning-500/10' : 'shadow-secondary-blue-500/10'}
         `}>
           {/* Subtle glow behind the icon */}
-          <div className={`absolute inset-0 blur-xl opacity-30 ${isRapid ? 'bg-amber-500' : 'bg-sky-500'}`}></div>
+          <div className={`absolute inset-0 blur-xl opacity-30 ${isRapid ? 'bg-warning-500' : 'bg-secondary-blue-500'}`}></div>
 
           <div className="relative z-10">
             {isRapid ? (

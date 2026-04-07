@@ -1,19 +1,26 @@
 "use client"
+import { useState } from "react";
 import { DashboardButtons } from "./_components/DashboardButtons";
 import { DashboardHeader } from "./_components/DashboardHeader";
 import { StationGrid } from "./_components/StationGrid";
+import { SplashScreen } from "./_components/SplashScreen";
 
 export default function Home() {
+  const [showSplash, setShowSplash] = useState(true);
+
   return (
-    <div className="min-h-screen bg-slate-900 flex justify-center selection:bg-blue-500/30 font-[family-name:var(--font-daki)]">
-      {/* Mobile Frame Container */}
-      <div className="w-full max-w-[480px] min-h-screen bg-slate-900 border-x border-slate-800 relative flex flex-col pb-8">
-        <DashboardHeader />
-        <main className="flex-1 px-6 pt-2">
-          <DashboardButtons />
-          <StationGrid />
-        </main>
+    <>
+      {showSplash && <SplashScreen onComplete={() => setShowSplash(false)} />}
+      <div className="min-h-screen bg-secondary-blue-dark-950 flex justify-center selection:bg-brand-500/30 font-[family-name:var(--font-daki)]">
+        {/* Mobile Frame Container */}
+        <div className="w-full max-w-[480px] min-h-screen bg-secondary-blue-dark-950 border-x border-gray-800/20 relative flex flex-col pb-8">
+          <DashboardHeader />
+          <main className="flex-1 px-6 pt-2">
+            <DashboardButtons />
+            <StationGrid />
+          </main>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

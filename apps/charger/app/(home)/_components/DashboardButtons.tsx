@@ -96,8 +96,8 @@ export const DashboardButtons = () => {
                     disabled={!hasFastCharger || availableFastCount > 0}
                     className={`flex items-center gap-2 px-3 py-1.5 rounded-2xl text-[10px] font-black tracking-widest uppercase transition-all duration-300 border
                         ${hasFastCharger && availableFastCount === 0
-                            ? "bg-amber-500/10 text-amber-500 border-amber-500/30 shadow-[0_0_20px_-5px_rgba(245,158,11,0.2)] active:scale-95"
-                            : "bg-slate-800/20 text-slate-300 border-slate-600/50 cursor-not-allowed opacity-50"
+                            ? "bg-warning-500/10 text-warning-500 border-warning-500/30 shadow-[0_0_20px_-5px_rgba(249,162,7,0.2)] active:scale-95"
+                            : "bg-gray-800/20 text-gray-300 border-gray-600/50 cursor-not-allowed opacity-50"
                         }`}
                 >
                     <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
@@ -111,8 +111,8 @@ export const DashboardButtons = () => {
                     // disabled={!hasSlowCharger || availableSlowCount > 0}
                     className={`flex items-center gap-2 px-3 py-1.5 rounded-2xl text-[10px] font-black tracking-widest uppercase transition-all duration-300 border
                         ${hasSlowCharger && availableSlowCount === 0
-                            ? "bg-sky-500/10 text-sky-500 border-sky-500/30 shadow-[0_0_20px_-5px_rgba(14,165,233,0.2)] active:scale-95"
-                            : "bg-slate-800/20 text-slate-300 border-slate-600/50 cursor-not-allowed opacity-50"
+                            ? "bg-secondary-blue-500/10 text-secondary-blue-500 border-secondary-blue-500/30 shadow-[0_0_20px_-5px_rgba(71,84,255,0.2)] active:scale-95"
+                            : "bg-gray-800/20 text-gray-300 border-gray-600/50 cursor-not-allowed opacity-50"
                         }`}
                 >
                     <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
@@ -125,13 +125,13 @@ export const DashboardButtons = () => {
             <button
                 onClick={toggleShowOnlyAvailable}
                 className={`flex items-center gap-2 px-3 py-1.5 rounded-2xl text-[10px] font-black tracking-widest uppercase transition-all duration-300 border ${showOnlyAvailable
-                    ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30 shadow-[0_0_20px_-5px_rgba(16,185,129,0.2)]"
-                    : "bg-slate-800/50 text-slate-400 border-slate-800 hover:border-slate-700"
+                    ? "bg-success-500/10 text-success-400 border-success-500/30 shadow-[0_0_20px_-5px_rgba(0,242,38,0.2)]"
+                    : "bg-gray-800/50 text-gray-400 border-gray-800 hover:border-gray-700"
                     }`}
             >
                 <div className={`relative flex items-center justify-center w-3 h-3`}>
-                    <div className={`absolute inset-0 rounded-full border-2 transition-all duration-500 ${showOnlyAvailable ? "border-emerald-400" : "border-slate-400"}`}></div>
-                    <div className={`w-1.5 h-1.5 rounded-full transition-all duration-500 ${showOnlyAvailable ? "bg-emerald-400 scale-100 animate-pulse" : "bg-transparent scale-0"}`}></div>
+                    <div className={`absolute inset-0 rounded-full border-2 transition-all duration-500 ${showOnlyAvailable ? "border-success-400" : "border-gray-400"}`}></div>
+                    <div className={`w-1.5 h-1.5 rounded-full transition-all duration-500 ${showOnlyAvailable ? "bg-success-400 scale-100 animate-pulse" : "bg-transparent scale-0"}`}></div>
                 </div>
                 충전 가능
             </button>
