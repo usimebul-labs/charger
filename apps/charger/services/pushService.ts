@@ -1,11 +1,11 @@
 import { PushMessage } from '@/app/(home)/_components/types';
 import webpush from 'web-push';
 
-webpush.setVapidDetails(
-    process.env.VAPID_SUBJECT as string,
-    process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY as string,
-    process.env.VAPID_PRIVATE_KEY as string
-);
+// webpush.setVapidDetails(
+//     process.env.VAPID_SUBJECT as string,
+//     process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY as string,
+//     process.env.VAPID_PRIVATE_KEY as string
+// );
 
 export async function push(subscription: PushSubscriptionJSON, message: PushMessage) {
     try {
