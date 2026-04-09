@@ -1,12 +1,14 @@
 import { ChargerInfo } from "../../../types/charger";
 import { StatusBadge } from "./StatusBadge";
 import { isAvailable } from "../_utils/charger";
+import { useStationStore } from "@/store/useStationStore";
 
 interface StationCardProps {
   station: ChargerInfo;
 }
 
 export const StationCard = ({ station }: StationCardProps) => {
+  const { setSelectedStation } = useStationStore();
   const isRapid = station.type.code === "06";
   const isAvailableStatus = isAvailable(station.status.code);
 
@@ -28,13 +30,20 @@ export const StationCard = ({ station }: StationCardProps) => {
   let currentType = typeConfig[station.type.code];
 
   return (
-    <div className={`relative bg-gray-800/40 rounded-2xl p-3 sm:p-4 border backdrop-blur-3xl transition-all duration-500 overflow-hidden group flex flex-col items-center text-center
+    <div 
+      onClick={() => setSelectedStation(station)}
+      className={`relative bg-gray-800/40 rounded-2xl p-3 sm:p-4 border backdrop-blur-3xl transition-all duration-500 overflow-hidden group flex flex-col items-center text-center cursor-pointer
       ${isAvailableStatus
         ? `border-success-500/40 bg-gradient-to-br ${currentType!.bg} shadow-[0_0_30px_-10px_rgba(0,242,38,0.2)] animate-in fade-in duration-1000`
         : `border-gray-800 hover:border-gray-700`
       }
-      hover:translate-y-[-6px] hover:shadow-2xl shadow-black/40
+      hover:translate-y-[-6px] hover:shadow-2xl shadow-black/40 active:scale-95
     `}>
+      {/* Tap Indicator Hint */}
+      <div className="absolute top-2 left-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <div className="w-1.5 h-1.5 bg-white/20 rounded-full animate-ping"></div>
+      </div>
+
       {/* Themed Background Decoration */}
       <div className={`absolute -top-10 -right-10 w-32 h-32 opacity-20 pointer-events-none transition-all duration-700 group-hover:scale-125 group-hover:opacity-30 ${currentType!.accent}`}>
         {isRapid ? (
@@ -71,6 +80,15 @@ export const StationCard = ({ station }: StationCardProps) => {
         </div>
 
         <StatusBadge status={station.status} />
+      </div>
+
+      {/* Map Hint Label */}
+      <div className="mt-2.5 opacity-0 group-hover:opacity-60 transition-opacity duration-300 scale-90 group-hover:scale-100 flex items-center gap-1.5">
+         <svg className="w-3 h-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+         </svg>
+         <span className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">View Map</span>
       </div>
     </div>
   );
