@@ -4,10 +4,12 @@ import { useStationStore } from "@/store/useStationStore";
 import { ParkingMapIsometric } from "./ParkingMapIsometric";
 import { cn } from "../../../lib/utils";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 export const StationMapModal = () => {
-  const { selectedStation, setSelectedStation } = useStationStore();
+  const { selectedStation, selectedStationIndex, setSelectedStation } = useStationStore();
   const [isClosing, setIsClosing] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   // Handle ESC key to close
   useEffect(() => {
@@ -21,9 +23,19 @@ export const StationMapModal = () => {
   const handleClose = () => {
     setIsClosing(true);
     setTimeout(() => {
-      setSelectedStation(null);
+      setSelectedStation(null, null);
       setIsClosing(false);
     }, 300); // Match animation duration
+  };
+
+  const copyToClipboard = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error("Failed to copy:", err);
+    }
   };
 
   const isRapid = selectedStation?.type.code === "06";
@@ -47,72 +59,111 @@ export const StationMapModal = () => {
         isClosing ? "scale-95 translate-y-4" : "scale-100 translate-y-0 animate-in zoom-in-95 fade-in duration-300"
       )}>
         {/* Header */}
-        <div className="p-6 pb-2 flex items-center justify-between">
-          <div className="space-y-1">
+        <div className="p-6 pb-2 flex items-start justify-between">
+          <div className="flex-1 space-y-1">
             <div className="flex items-center gap-3">
               <div className={cn(
                 "p-1.5 rounded-lg border",
                 isRapid ? "text-warning-400 border-warning-500/30 bg-warning-500/10" : "text-secondary-blue-400 border-secondary-blue-500/30 bg-secondary-blue-500/10"
               )}>
                 {isRapid ? (
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                 ) : (
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18 10V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h1v4h-2c-1.1 0-2 .9-2 2v2h14v-2c0-1.1-.9-2-2-2h-2v-4h1c1.1 0 2-.9 2-2z" /></svg>
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18 10V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h1v4h-2c-1.1 0-2 .9-2 2v2h14v-2c0-1.1-.9-2-2-2h-2v-4h1c1.1 0 2-.9 2-2z" /></svg>
                 )}
               </div>
               <h3 className="text-xl font-black text-white tracking-tight font-[family-name:var(--font-daki)]">
-                {isRapid ? "급속" : "완속"} 충전기 {selectedStation?.searchKey}
+                {isRapid ? "급속" : "완속"} 충전 스테이션
               </h3>
             </div>
-            <p className="text-sm text-gray-300 font-medium ml-0.5">지하 {selectedStation?.floor}층 하행 램프 및 14번 기둥 옆</p>
-            <div className="flex flex-wrap gap-2 mt-2 ml-0.5">
-              {selectedStation?.type.adapter && (
-                <div className="px-2 py-0.5 bg-gray-800/50 border border-white/5 rounded-md text-[10px] text-gray-400 font-medium">
-                  호환: {selectedStation.type.adapter}
-                </div>
-              )}
-              {selectedStation?.status.desc && (
-                <div className="px-2 py-0.5 bg-gray-800/50 border border-white/5 rounded-md text-[10px] text-gray-500 font-medium italic">
-                  {selectedStation.status.desc}
-                </div>
-              )}
-            </div>
+            <p className="text-sm text-gray-300 font-medium ml-0.5">
+              지하 <span className="text-secondary-blue-400 font-black text-base">{selectedStation?.floor}</span>층 14번 기둥 옆
+            </p>
           </div>
-          <button
-            onClick={handleClose}
-            className="p-2.5 hover:bg-white/5 rounded-full transition-all text-gray-300 hover:text-white group"
-          >
-            <svg className="w-6 h-6 transform group-hover:rotate-90 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
+
+          <div className="flex items-center gap-4">
+            <button
+              onClick={handleClose}
+              className="p-2.5 hover:bg-white/5 rounded-full transition-all text-gray-400 hover:text-white group"
+            >
+              <svg className="w-6 h-6 transform group-hover:rotate-90 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
         </div>
 
         {/* Map Visualization Area */}
         <div className="px-6 py-4">
-          <div className="relative rounded-2xl bg-black/40 border border-white/5 overflow-hidden">
+          <div className="relative rounded-2xl bg-black/60 border border-white/10 overflow-hidden shadow-inner h-[150px]">
             <div className="absolute inset-0 bg-gradient-to-b from-blue-500/5 to-transparent pointer-events-none"></div>
-            <ParkingMapIsometric floor={selectedStation?.floor || ""} />
+            <ParkingMapIsometric floor={selectedStation?.floor || ""} highlightIndex={selectedStationIndex} />
           </div>
 
-          <div className="mt-8 text-center space-y-3 pb-4">
-            <div className="inline-flex items-center gap-3 px-5 py-2.5 bg-success-500/10 border border-success-500/20 rounded-2xl">
-              <div className="w-1.5 h-1.5 rounded-full bg-success-500 animate-pulse"></div>
-              <span className="text-success-400 text-[11px] font-black uppercase tracking-[0.2em]">South-East (SE) Corner</span>
+          <div className="mt-4 bg-gray-950/40 border border-white/5 rounded-2xl p-4 flex flex-col gap-3">
+            <div className="flex items-center gap-3">
+              <div className="px-3 py-1 bg-success-500/10 border border-success-500/20 rounded-lg min-w-[66px]">
+                <span className="text-success-400 text-[10px] font-black uppercase tracking-widest text-center">{selectedStation?.status.value}</span>
+              </div>
+              <div className="h-4 w-px bg-white/10"></div>
+              <span className="text-xs text-gray-300 font-medium leading-relaxed">
+                {selectedStation?.status.desc}
+              </span>
             </div>
-            <p className="text-xs text-gray-400 leading-relaxed max-w-[280px] mx-auto font-medium">
-              현재 층의 <span className="text-gray-100">남동쪽 건물 코너</span>에 스테이션이 위치해 있습니다. 모든 층(B3-B5)의 위치는 동일합니다.
-            </p>
           </div>
         </div>
+
+        {/* Info Bars */}
+        <div className="px-6 grid grid-cols-2 gap-2 mb-4">
+          {/* ID */}
+          <button
+            onClick={() => copyToClipboard(String(selectedStation?.searchKey))}
+            className="bg-white/5 border border-white/5 rounded-xl px-4 py-2.5 flex flex-col gap-0.5 text-left hover:bg-white/10 active:scale-[0.97] transition-all group"
+          >
+            <div className="flex items-center justify-between w-full">
+              <span className="text-[9px] text-gray-300 font-black uppercase tracking-widest">ID</span>
+              {copied ? (
+                <span className="text-[8px] font-bold text-success-400 animate-in fade-in transition-all">COPIED</span>
+              ) : (
+                <svg className="w-3 h-3 text-gray-300 group-hover:text-secondary-blue-400 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2" />
+                </svg>
+              )}
+            </div>
+            <span className="text-[11px] text-white font-mono font-bold">{selectedStation?.searchKey}</span>
+          </button>
+
+          {/* Type */}
+          <div className="bg-white/5 border border-white/5 rounded-xl px-4 py-2.5 flex flex-col gap-0.5">
+            <span className="text-[9px] text-gray-300 font-black uppercase tracking-widest">충전 방식</span>
+            <span className="text-[11px] text-gray-100 font-bold truncate">
+              {isRapid ? "급속" : "완속"}
+            </span>
+          </div>
+
+          {/* Adapter */}
+          <div className="bg-white/5 border border-white/5 rounded-xl px-4 py-2.5 flex flex-col gap-0.5">
+            <span className="text-[9px] text-gray-300 font-black uppercase tracking-widest">호환 어댑터</span>
+            <span className="text-[11px] text-gray-100 font-bold truncate">
+              {selectedStation?.type.adapter || "정보 없음"}
+            </span>
+          </div>
+
+          {/* Capacity */}
+          <div className="bg-white/5 border border-white/5 rounded-xl px-4 py-2.5 flex flex-col gap-0.5">
+            <span className="text-[9px] text-gray-300 font-black uppercase tracking-widest">충전 용량</span>
+            <span className="text-[11px] text-gray-100 font-bold">{selectedStation?.capacity}</span>
+          </div>
+        </div>
+
+
 
         {/* Footer */}
         <div className="px-6 py-6 bg-white/5 border-t border-white/5 flex flex-col gap-3">
           <button
             onClick={handleClose}
             className="w-full py-4 bg-white text-gray-950 font-black rounded-2xl hover:bg-gray-200 transition-all hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] active:scale-[0.98] text-sm tracking-wide"
-          >
-            확인 완료
+          >확인
           </button>
         </div>
       </div>

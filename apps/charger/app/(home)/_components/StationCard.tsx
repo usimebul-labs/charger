@@ -5,9 +5,10 @@ import { useStationStore } from "@/store/useStationStore";
 
 interface StationCardProps {
   station: ChargerInfo;
+  index: number;
 }
 
-export const StationCard = ({ station }: StationCardProps) => {
+export const StationCard = ({ station, index }: StationCardProps) => {
   const { setSelectedStation } = useStationStore();
   const isRapid = station.type.code === "06";
   const isAvailableStatus = isAvailable(station.status.code);
@@ -31,7 +32,7 @@ export const StationCard = ({ station }: StationCardProps) => {
 
   return (
     <div 
-      onClick={() => setSelectedStation(station)}
+      onClick={() => setSelectedStation(station, index)}
       dir="ltr"
       className={`relative bg-gray-800/40 rounded-2xl p-3 sm:p-4 border backdrop-blur-3xl transition-all duration-500 overflow-hidden group flex flex-col items-center text-center cursor-pointer
       ${isAvailableStatus

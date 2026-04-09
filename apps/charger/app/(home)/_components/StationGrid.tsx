@@ -36,8 +36,8 @@ export const StationGrid = () => {
 
               {/* 3 Columns Layout (grid-cols-3) */}
               <div className="grid grid-cols-3 gap-3 sm:gap-6" dir="rtl">
-                {floorStations.map((station) => (
-                  <StationCard key={station.id} station={station} />
+                {floorStations.map((station, index) => (
+                  <StationCard key={station.id} station={station} index={index} />
                 ))}
               </div>
             </section>

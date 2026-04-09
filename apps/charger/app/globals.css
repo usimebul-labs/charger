@@ -98,13 +98,16 @@
     from {
       transform: rotate(0deg);
     }
+
     to {
       transform: rotate(360deg);
     }
   }
 }
 
-html, body {
+html,
+body {
+  box-sizing: border-box;
   overflow-x: hidden;
   background-color: var(--color-secondary-blue-dark-950);
 }

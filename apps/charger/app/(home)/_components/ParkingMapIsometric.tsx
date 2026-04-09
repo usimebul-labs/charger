@@ -5,14 +5,16 @@ import { cn } from "../../../lib/utils";
 
 interface ParkingMapIsometricProps {
   floor: string;
+  highlightIndex?: number | null;
 }
 
-export const ParkingMapIsometric = ({ floor }: ParkingMapIsometricProps) => {
+export const ParkingMapIsometric = ({ floor, highlightIndex }: ParkingMapIsometricProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+
 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
@@ -27,7 +29,7 @@ export const ParkingMapIsometric = ({ floor }: ParkingMapIsometricProps) => {
     // Projection Constants
     // Zoomed in version focusing on SE corner (Pillar 14 and Parking slots)
     const centerX = size / 2 - 60; // Shifted left to bring SE corner more into center
-    const centerY = size / 2; // Shifted up to bring SE corner more into center
+    const centerY = size / 2 - 130; // Shifted up to bring SE corner more into center
     const scale = 3.6; // Doubled scale from 1.8 to 3.6
     const angleZ = 15 * Math.PI / 180;
     const angleX = 65 * Math.PI / 180;
@@ -102,9 +104,9 @@ export const ParkingMapIsometric = ({ floor }: ParkingMapIsometricProps) => {
       const baseX = 8;
       // --- 2.5 Ramp Section (Left of parking lines) ---      
       const rampX = -32 + baseX;
-      const rampY = 15;
+      const rampY = -20;
       const rampW = 30;
-      const rampH = 60;
+      const rampH = 100;
 
       const r1 = project(rampX, rampY, 0);
       const r2 = project(rampX + rampW, rampY, 0);
@@ -173,13 +175,31 @@ export const ParkingMapIsometric = ({ floor }: ParkingMapIsometricProps) => {
         const s3 = project(x + slotW, y + slotH, 0);
         const s4 = project(x, y + slotH, 0);
 
+        // Calculate if this index should be highlighted
+        // highlightIndex 0 (first card, right) maps to i=2 (right)
+        const isHighlighted = highlightIndex !== null && highlightIndex !== undefined && i === (2 - highlightIndex);
+
         ctx.beginPath();
-        ctx.strokeStyle = "rgba(96, 165, 250, 0.4)";
+        if (isHighlighted) {
+          ctx.strokeStyle = "rgba(0, 242, 38, 0.8)";
+          ctx.lineWidth = 2.5;
+
+          // Glow effect for highlight
+          ctx.save();
+          ctx.shadowBlur = 15;
+          ctx.shadowColor = "rgba(0, 242, 38, 0.6)";
+        } else {
+          ctx.strokeStyle = "rgba(96, 165, 250, 0.4)";
+          ctx.lineWidth = 1.5;
+        }
+
         ctx.moveTo(s4.x, s4.y);
         ctx.lineTo(s1.x, s1.y);
         ctx.lineTo(s2.x, s2.y);
         ctx.lineTo(s3.x, s3.y);
         ctx.stroke();
+
+        if (isHighlighted) ctx.restore();
 
         const mid = project(x + slotW / 2, y + slotH / 2, 0);
 
@@ -198,15 +218,15 @@ export const ParkingMapIsometric = ({ floor }: ParkingMapIsometricProps) => {
         ctx.textBaseline = "middle";
 
         // 1. Deep Shadow (Bottom-right rim)
-        ctx.fillStyle = "rgba(4, 3, 15, 0.8)";
+        ctx.fillStyle = isHighlighted ? "rgba(0, 50, 0, 0.8)" : "rgba(4, 3, 15, 0.8)";
         ctx.fillText("P", 0.15, 0.15);
 
         // 2. Light Rim (Top-left rim)
-        ctx.fillStyle = "rgba(147, 197, 253, 0.4)";
+        ctx.fillStyle = isHighlighted ? "rgba(0, 242, 38, 0.4)" : "rgba(147, 197, 253, 0.4)";
         ctx.fillText("P", -0.15, -0.15);
 
         // 3. Main Face (Engraved color)
-        ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
+        ctx.fillStyle = isHighlighted ? "#00f226" : "rgba(255, 255, 255, 0.8)";
         ctx.fillText("P", 0, 0);
 
         ctx.restore();
@@ -310,7 +330,7 @@ export const ParkingMapIsometric = ({ floor }: ParkingMapIsometricProps) => {
     draw();
 
     // Redraw on floor change
-  }, [floor]);
+  }, [floor, highlightIndex]); // Added highlightIndex to dependencies
 
   return (
     <div className="relative w-full aspect-square max-w-[320px] mx-auto flex items-center justify-center p-8 overflow-hidden">
