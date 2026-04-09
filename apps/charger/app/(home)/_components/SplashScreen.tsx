@@ -62,7 +62,7 @@ export const SplashScreen = ({ onComplete }: SplashScreenProps) => {
               DAOU DIGITAL SQUARE
             </span>
           </h2>
-          <p className="text-xs sm:text-sm text-gray-300 font-medium tracking-widest uppercase">
+          <p className="text-xs sm:text-sm text-gray-200 font-medium tracking-widest uppercase">
             전기차 충전 스테이션 현황
           </p>
         </div>

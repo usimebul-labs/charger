@@ -1,23 +1,50 @@
 import Image from "next/image";
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { useStations } from "../_hooks/useStations";
 import { upsertStations } from "@/app/actions/charger";
 import { isAvailable } from "../_utils/charger";
+import { cn } from "@/lib/utils";
 
 export const DashboardHeader = () => {
-  const { data: stations, refetch } = useStations();
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const { data: stations, refetch, dataUpdatedAt } = useStations();
 
-  const availableSlow = useMemo(() =>
-    stations?.filter((s) => s.type.code === "02" && isAvailable(s.status.code)).length
-    , [stations]);
+  const lastUpdated = useMemo(() => {
+    if (!dataUpdatedAt) return "--:--:--";
+    return new Date(dataUpdatedAt).toLocaleTimeString('ko-KR', {
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false
+    });
+  }, [dataUpdatedAt]);
 
-  const availableFast = useMemo(() =>
-    stations?.filter((s) => s.type.code === "06" && isAvailable(s.status.code)).length
-    , [stations]);
+  const slowCount = useMemo(() => ({
+    available: stations?.filter((s) => s.type.code === "02" && isAvailable(s.status.code)).length || 0,
+    total: stations?.filter((s) => s.type.code === "02").length || 0
+  }), [stations]);
+
+  const fastCount = useMemo(() => ({
+    available: stations?.filter((s) => s.type.code === "06" && isAvailable(s.status.code)).length || 0,
+    total: stations?.filter((s) => s.type.code === "06").length || 0
+  }), [stations]);
 
   const refresh = async () => {
-    await upsertStations();
-    refetch();
+    if (isRefreshing) return;
+    setIsRefreshing(true);
+
+    try {
+      // Ensure the animation lasts at least 700ms for visual consistency
+      const minDuration = new Promise((resolve) => setTimeout(resolve, 700));
+      const refreshTask = (async () => {
+        await upsertStations();
+        await refetch();
+      })();
+
+      await Promise.all([refreshTask, minDuration]);
+    } finally {
+      setIsRefreshing(false);
+    }
   }
 
   return (
@@ -36,25 +63,51 @@ export const DashboardHeader = () => {
               priority
             />
           </div>
+          <span className="text-[11px] text-gray-500 font-bold uppercase tracking-widest font-mono mb-0.5">
+            Updated: {lastUpdated}
+          </span>
         </h1>
 
-        <div className="flex items-center justify-between pt-4">
-          <div className="flex items-center gap-2">
-            <div className="w-1.5 h-1.5 bg-success-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(0,242,38,0.8)]"></div>
-            <span className="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Live Status</span>
-          </div>
+        <div className="flex items-center justify-end pt-4">
           <div className="flex items-center gap-3">
-            <p className="text-[10px] sm:text-xs text-gray-400 font-black uppercase tracking-widest">
-              완속 <span className="text-success-400">{availableSlow}</span> · 급속 <span className="text-success-400">{availableFast}</span> 이용 가능
-            </p>
+            <div className="flex items-center gap-3 text-[10px] sm:text-xs text-gray-300 font-black uppercase tracking-widest">
+              <div className="flex items-center gap-1.5">
+                <svg className="w-3 h-3 text-secondary-blue-400" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M18 10V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h1v4h-2c-1.1 0-2 .9-2 2v2h14v-2c0-1.1-.9-2-2-2h-2v-4h1c1.1 0 2-.9 2-2z" />
+                </svg>
+                <span>완속 <span className="text-success-400">{slowCount.available}</span><span className="text-gray-500 mx-0.5">/</span><span className="text-gray-400">{slowCount.total}</span></span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <svg className="w-3 h-3 text-warning-400" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+                <span>급속 <span className="text-success-400">{fastCount.available}</span><span className="text-gray-500 mx-0.5">/</span><span className="text-gray-400">{fastCount.total}</span></span>
+              </div>
+            </div>
             <button
               onClick={refresh}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-success-500/10 hover:bg-success-500/20 text-success-400 border border-success-500/30 transition-all duration-300 active:scale-95 group"
+              disabled={isRefreshing}
+              className={cn(
+                "flex items-center gap-1.5 px-3 py-1.5 rounded-xl border transition-all duration-300 active:scale-95 group",
+                isRefreshing
+                  ? "bg-success-500/5 text-success-500/50 border-success-500/10 cursor-not-allowed"
+                  : "bg-success-500/10 hover:bg-success-500/20 text-success-400 border-success-500/30"
+              )}
             >
-              <svg className="w-3.5 h-3.5 group-active:rotate-180 transition-transform duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg
+                className={cn(
+                  "w-3.5 h-3.5 transition-transform duration-500",
+                  isRefreshing && "animate-spin-once"
+                )}
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
               </svg>
-              <span className="text-[10px] font-black uppercase tracking-wider">새로고침</span>
+              <span className="text-[10px] font-black uppercase tracking-wider">
+                {isRefreshing ? "갱신 중..." : "새로고침"}
+              </span>
             </button>
           </div>
         </div>

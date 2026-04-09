@@ -64,11 +64,11 @@ export const StationMapModal = () => {
                 {isRapid ? "급속" : "완속"} 충전기 {selectedStation?.searchKey}
               </h3>
             </div>
-            <p className="text-sm text-gray-400 font-medium ml-0.5">지하 {selectedStation?.floor}층 하행 램프 및 14번 기둥 옆</p>
+            <p className="text-sm text-gray-300 font-medium ml-0.5">지하 {selectedStation?.floor}층 하행 램프 및 14번 기둥 옆</p>
           </div>
           <button
             onClick={handleClose}
-            className="p-2.5 hover:bg-white/5 rounded-full transition-all text-gray-400 hover:text-white group"
+            className="p-2.5 hover:bg-white/5 rounded-full transition-all text-gray-300 hover:text-white group"
           >
             <svg className="w-6 h-6 transform group-hover:rotate-90 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -88,8 +88,8 @@ export const StationMapModal = () => {
               <div className="w-1.5 h-1.5 rounded-full bg-success-500 animate-pulse"></div>
               <span className="text-success-400 text-[11px] font-black uppercase tracking-[0.2em]">South-East (SE) Corner</span>
             </div>
-            <p className="text-xs text-gray-500 leading-relaxed max-w-[280px] mx-auto font-medium">
-              현재 층의 <span className="text-gray-300">남동쪽 건물 코너</span>에 스테이션이 위치해 있습니다. 모든 층(B3-B5)의 위치는 동일합니다.
+            <p className="text-xs text-gray-400 leading-relaxed max-w-[280px] mx-auto font-medium">
+              현재 층의 <span className="text-gray-100">남동쪽 건물 코너</span>에 스테이션이 위치해 있습니다. 모든 층(B3-B5)의 위치는 동일합니다.
             </p>
           </div>
         </div>

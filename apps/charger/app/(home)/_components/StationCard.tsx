@@ -55,7 +55,7 @@ export const StationCard = ({ station }: StationCardProps) => {
       </div>
 
       <div className="flex flex-col items-center mb-2 relative z-10 w-full gap-1">
-        <span className="text-[10px] sm:text-[11px] font-bold text-gray-100 tracking-widest uppercase opacity-70">
+        <span className="text-[10px] sm:text-[11px] font-bold text-gray-200 tracking-widest uppercase">
           ID {station.searchKey}
         </span>
       </div>
@@ -85,11 +85,11 @@ export const StationCard = ({ station }: StationCardProps) => {
 
       {/* Map Hint Label */}
       <div className="mt-2.5 opacity-0 group-hover:opacity-60 transition-opacity duration-300 scale-90 group-hover:scale-100 flex items-center gap-1.5">
-         <svg className="w-3 h-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+         <svg className="w-3 h-3 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
          </svg>
-         <span className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">View Map</span>
+         <span className="text-[9px] font-bold text-gray-300 uppercase tracking-widest">View Map</span>
       </div>
     </div>
   );
