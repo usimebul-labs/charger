@@ -30,13 +30,17 @@ export const StationCard = ({ station, index }: StationCardProps) => {
 
   let currentType = typeConfig[station.type.code];
 
+  const isWarningStatus = ["8", "9"].includes(station.status.code);
+
   return (
     <div 
       onClick={() => setSelectedStation(station, index)}
       dir="ltr"
       className={`relative bg-gray-800/40 rounded-2xl p-3 sm:p-4 border backdrop-blur-3xl transition-all duration-500 overflow-hidden group flex flex-col items-center text-center cursor-pointer
       ${isAvailableStatus
-        ? `border-success-500/40 bg-gradient-to-br ${currentType!.bg} shadow-[0_0_30px_-10px_rgba(0,242,38,0.2)] animate-in fade-in duration-1000`
+        ? (isWarningStatus 
+          ? `border-warning-500/40 bg-gradient-to-br ${currentType!.bg} shadow-[0_0_30px_-10px_rgba(249,162,7,0.2)] animate-in fade-in duration-1000`
+          : `border-success-500/40 bg-gradient-to-br ${currentType!.bg} shadow-[0_0_30px_-10px_rgba(0,242,38,0.2)] animate-in fade-in duration-1000`)
         : `border-gray-800 hover:border-gray-700`
       }
       hover:translate-y-[-6px] hover:shadow-2xl shadow-black/40 active:scale-95
