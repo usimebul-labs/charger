@@ -44,7 +44,7 @@ export const StationGrid = () => {
           );
         })}
       </div>
-      
+
       {/* Global Station Map Modal */}
       <StationMapModal />
     </>

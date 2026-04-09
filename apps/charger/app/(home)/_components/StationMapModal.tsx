@@ -26,6 +26,8 @@ export const StationMapModal = () => {
     }, 300); // Match animation duration
   };
 
+  const isRapid = selectedStation?.type.code === "06";
+
   if (!selectedStation && !isClosing) return null;
 
   return (
@@ -34,11 +36,11 @@ export const StationMapModal = () => {
       isClosing ? "opacity-0" : "opacity-100"
     )}>
       {/* Backdrop */}
-      <div 
+      <div
         className="absolute inset-0 bg-gray-950/80 backdrop-blur-sm"
         onClick={handleClose}
       />
-      
+
       {/* Modal Content */}
       <div className={cn(
         "relative w-full max-w-lg bg-gray-900/90 border border-white/10 rounded-[2rem] overflow-hidden shadow-2xl backdrop-blur-2xl transition-all duration-300 transform",
@@ -47,17 +49,24 @@ export const StationMapModal = () => {
         {/* Header */}
         <div className="p-6 pb-2 flex items-center justify-between">
           <div className="space-y-1">
-            <div className="flex items-center gap-2">
-              <span className="px-2 py-0.5 rounded-md bg-success-500/10 border border-success-500/20 text-[10px] font-bold text-success-400 uppercase tracking-tighter">
-                Live Location
-              </span>
+            <div className="flex items-center gap-3">
+              <div className={cn(
+                "p-1.5 rounded-lg border",
+                isRapid ? "text-warning-400 border-warning-500/30 bg-warning-500/10" : "text-secondary-blue-400 border-secondary-blue-500/30 bg-secondary-blue-500/10"
+              )}>
+                {isRapid ? (
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                ) : (
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18 10V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h1v4h-2c-1.1 0-2 .9-2 2v2h14v-2c0-1.1-.9-2-2-2h-2v-4h1c1.1 0 2-.9 2-2z" /></svg>
+                )}
+              </div>
               <h3 className="text-xl font-black text-white tracking-tight font-[family-name:var(--font-daki)]">
-                STATION {selectedStation?.searchKey}
+                {isRapid ? "급속" : "완속"} 충전기 {selectedStation?.searchKey}
               </h3>
             </div>
-            <p className="text-sm text-gray-400 font-medium ml-0.5">지하 {selectedStation?.floor}층 14번 기둥 인근</p>
+            <p className="text-sm text-gray-400 font-medium ml-0.5">지하 {selectedStation?.floor}층 하행 램프 및 14번 기둥 옆</p>
           </div>
-          <button 
+          <button
             onClick={handleClose}
             className="p-2.5 hover:bg-white/5 rounded-full transition-all text-gray-400 hover:text-white group"
           >
@@ -73,7 +82,7 @@ export const StationMapModal = () => {
             <div className="absolute inset-0 bg-gradient-to-b from-blue-500/5 to-transparent pointer-events-none"></div>
             <ParkingMapIsometric floor={selectedStation?.floor || ""} />
           </div>
-          
+
           <div className="mt-8 text-center space-y-3 pb-4">
             <div className="inline-flex items-center gap-3 px-5 py-2.5 bg-success-500/10 border border-success-500/20 rounded-2xl">
               <div className="w-1.5 h-1.5 rounded-full bg-success-500 animate-pulse"></div>
@@ -84,10 +93,10 @@ export const StationMapModal = () => {
             </p>
           </div>
         </div>
-        
+
         {/* Footer */}
         <div className="px-6 py-6 bg-white/5 border-t border-white/5 flex flex-col gap-3">
-          <button 
+          <button
             onClick={handleClose}
             className="w-full py-4 bg-white text-gray-950 font-black rounded-2xl hover:bg-gray-200 transition-all hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] active:scale-[0.98] text-sm tracking-wide"
           >
