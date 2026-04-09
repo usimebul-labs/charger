@@ -59,7 +59,7 @@ export const DashboardButtons = () => {
         const typeName = type === "06" ? "급속" : "완속";
         setTooltip({
             visible: true,
-            message: `"${typeName}" 충전 스테이션이 모두 '충전 중'일 때만 알림 등록이 가능합니다`,
+            message: `"${typeName}" 충전 스테이션이 모두\n'충전 중'일 때만 알림 등록이 가능합니다`,
             type
         });
         setTimeout(() => setTooltip(prev => ({ ...prev, visible: false })), 3000);

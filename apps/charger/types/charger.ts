@@ -3,11 +3,19 @@ export interface CodeValue {
     value: string;
 }
 
+export interface ChargerStatus extends CodeValue {
+    desc?: string;
+}
+
+export interface ChargerType extends CodeValue {
+    adapter?: string;
+}
+
 export interface ChargerInfo {
     id: number;
     searchKey: number;
-    status: CodeValue;
-    type: CodeValue;
+    status: ChargerStatus;
+    type: ChargerType;
     capacity: string;
     floor: "B3" | "B4" | "B5";
 }

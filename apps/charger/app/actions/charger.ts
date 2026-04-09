@@ -23,8 +23,10 @@ export async function upsertStations() {
             p_search_key: charger.searchKey,
             p_status_code: charger.status.code,
             p_status_value: charger.status.value,
+            p_status_desc: charger.status.desc,
             p_type_code: charger.type.code,
             p_type_value: charger.type.value,
+            p_type_adapter: charger.type.adapter,
             p_capacity: charger.capacity,
             p_floor: getFloor(charger.searchKey)
         }
@@ -41,7 +43,7 @@ export async function getStations() {
     const supabase = createClient(cookieStore);
     const { data, error } = await supabase
         .from('charger_infos')
-        .select(`id, search_key, capacity, floor, charger_statuses (code, value), charger_types (code, value)`)
+        .select(`id, search_key, capacity, floor, charger_statuses (code, value, desc), charger_types (code, value, adapter)`)
         .order('id', { ascending: true }); // ID 순 정렬
 
     if (error) {
@@ -54,8 +56,14 @@ export async function getStations() {
         searchKey: item.search_key,
         capacity: item.capacity,
         floor: item.floor,
-        status: item.charger_statuses,
-        type: item.charger_types,
+        status: {
+            ...item.charger_statuses,
+            desc: item.charger_statuses?.desc
+        },
+        type: {
+            ...item.charger_types,
+            adapter: item.charger_types?.adapter
+        },
     }));
 
 

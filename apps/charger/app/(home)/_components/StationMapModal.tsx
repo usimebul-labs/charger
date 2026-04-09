@@ -65,6 +65,18 @@ export const StationMapModal = () => {
               </h3>
             </div>
             <p className="text-sm text-gray-300 font-medium ml-0.5">지하 {selectedStation?.floor}층 하행 램프 및 14번 기둥 옆</p>
+            <div className="flex flex-wrap gap-2 mt-2 ml-0.5">
+              {selectedStation?.type.adapter && (
+                <div className="px-2 py-0.5 bg-gray-800/50 border border-white/5 rounded-md text-[10px] text-gray-400 font-medium">
+                  호환: {selectedStation.type.adapter}
+                </div>
+              )}
+              {selectedStation?.status.desc && (
+                <div className="px-2 py-0.5 bg-gray-800/50 border border-white/5 rounded-md text-[10px] text-gray-500 font-medium italic">
+                  {selectedStation.status.desc}
+                </div>
+              )}
+            </div>
           </div>
           <button
             onClick={handleClose}
