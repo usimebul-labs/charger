@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { cn } from "../../../lib/utils";
+import { useTheme } from "next-themes";
 
 interface ParkingMapIsometricProps {
   floor: string;
@@ -10,6 +11,8 @@ interface ParkingMapIsometricProps {
 
 export const ParkingMapIsometric = ({ floor, highlightIndex }: ParkingMapIsometricProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === "dark";
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -49,16 +52,17 @@ export const ParkingMapIsometric = ({ floor, highlightIndex }: ParkingMapIsometr
 
       // --- 0. Background Gradient (Top to Bottom) ---
       const bgGrad = ctx.createLinearGradient(0, 0, 0, size);
-      bgGrad.addColorStop(0, "rgba(4, 3, 15, 0)");
-      bgGrad.addColorStop(0.5, "rgba(4, 3, 15, 0.4)");
-      bgGrad.addColorStop(1, "rgba(4, 3, 15, 0.95)");
+      const bgColor = isDark ? "rgba(4, 3, 15, 1)" : "rgba(255, 255, 255, 1)";
+      bgGrad.addColorStop(0, isDark ? "rgba(4, 3, 15, 0)" : "rgba(255, 255, 255, 0)");
+      bgGrad.addColorStop(0.5, isDark ? "rgba(4, 3, 15, 0.4)" : "rgba(255, 255, 255, 0.4)");
+      bgGrad.addColorStop(1, bgColor);
       ctx.fillStyle = bgGrad;
       ctx.fillRect(0, 0, size, size);
 
       // --- 1. Grid Lines (Extended) ---
       // ... (existing grid code)
       ctx.beginPath();
-      ctx.strokeStyle = "rgba(96, 165, 250, 0.2)";
+      ctx.strokeStyle = isDark ? "rgba(96, 165, 250, 0.2)" : "rgba(30, 58, 138, 0.1)";
       ctx.lineWidth = 0.5;
 
       const gridSize = 32;
@@ -92,12 +96,12 @@ export const ParkingMapIsometric = ({ floor, highlightIndex }: ParkingMapIsometr
       ctx.closePath();
 
       const floorGrad = ctx.createLinearGradient(p1.x, p1.y, p3.x, p3.y);
-      floorGrad.addColorStop(0, "rgba(30, 58, 138, 0.05)");
-      floorGrad.addColorStop(1, "rgba(30, 58, 138, 0.15)");
+      floorGrad.addColorStop(0, isDark ? "rgba(30, 58, 138, 0.05)" : "rgba(59, 130, 246, 0.02)");
+      floorGrad.addColorStop(1, isDark ? "rgba(30, 58, 138, 0.15)" : "rgba(59, 130, 246, 0.08)");
       ctx.fillStyle = floorGrad;
       ctx.fill();
 
-      ctx.strokeStyle = "rgba(59, 130, 246, 0.3)";
+      ctx.strokeStyle = isDark ? "rgba(59, 130, 246, 0.3)" : "rgba(59, 130, 246, 0.15)";
       ctx.lineWidth = 2;
       ctx.stroke();
 
@@ -121,9 +125,9 @@ export const ParkingMapIsometric = ({ floor, highlightIndex }: ParkingMapIsometr
       ctx.closePath();
 
       const rampGrad = ctx.createLinearGradient(r1.x, r1.y, r1.x, r4.y);
-      rampGrad.addColorStop(0, "rgba(59, 130, 246, 0.05)");
-      rampGrad.addColorStop(0.5, "rgba(4, 3, 15, 0.2)");
-      rampGrad.addColorStop(1, "rgba(4, 3, 15, 1)");
+      rampGrad.addColorStop(0, isDark ? "rgba(59, 130, 246, 0.05)" : "rgba(59, 130, 246, 0.02)");
+      rampGrad.addColorStop(0.5, isDark ? "rgba(4, 3, 15, 0.2)" : "rgba(255, 255, 255, 0.2)");
+      rampGrad.addColorStop(1, bgColor);
       ctx.fillStyle = rampGrad;
       ctx.fill();
       ctx.strokeStyle = "rgba(59, 130, 246, 0)";
@@ -139,7 +143,7 @@ export const ParkingMapIsometric = ({ floor, highlightIndex }: ParkingMapIsometr
       ctx.translate(rampMid.x, rampMid.y);
       ctx.rotate(rampAngle);
 
-      ctx.strokeStyle = "rgba(147, 197, 253, 0.2)";
+      ctx.strokeStyle = isDark ? "rgba(147, 197, 253, 0.2)" : "rgba(30, 58, 138, 0.2)";
       ctx.lineWidth = 2.5;
       ctx.lineCap = "round";
       ctx.lineJoin = "round";
@@ -189,7 +193,7 @@ export const ParkingMapIsometric = ({ floor, highlightIndex }: ParkingMapIsometr
           ctx.shadowBlur = 15;
           ctx.shadowColor = "rgba(0, 242, 38, 0.6)";
         } else {
-          ctx.strokeStyle = "rgba(96, 165, 250, 0.4)";
+          ctx.strokeStyle = isDark ? "rgba(96, 165, 250, 0.4)" : "rgba(59, 130, 246, 0.3)";
           ctx.lineWidth = 1.5;
         }
 
@@ -218,15 +222,15 @@ export const ParkingMapIsometric = ({ floor, highlightIndex }: ParkingMapIsometr
         ctx.textBaseline = "middle";
 
         // 1. Deep Shadow (Bottom-right rim)
-        ctx.fillStyle = isHighlighted ? "rgba(0, 50, 0, 0.8)" : "rgba(4, 3, 15, 0.8)";
+        ctx.fillStyle = isHighlighted ? "rgba(0, 50, 0, 0.8)" : (isDark ? "rgba(4, 3, 15, 0.8)" : "rgba(255, 255, 255, 0.8)");
         ctx.fillText("P", 0.15, 0.15);
 
         // 2. Light Rim (Top-left rim)
-        ctx.fillStyle = isHighlighted ? "rgba(0, 242, 38, 0.4)" : "rgba(147, 197, 253, 0.4)";
+        ctx.fillStyle = isHighlighted ? "rgba(0, 242, 38, 0.4)" : (isDark ? "rgba(147, 197, 253, 0.4)" : "rgba(30, 58, 138, 0.2)");
         ctx.fillText("P", -0.15, -0.15);
 
         // 3. Main Face (Engraved color)
-        ctx.fillStyle = isHighlighted ? "#00f226" : "rgba(255, 255, 255, 0.8)";
+        ctx.fillStyle = isHighlighted ? "#00f226" : (isDark ? "rgba(255, 255, 255, 0.8)" : "rgba(30, 58, 138, 0.6)");
         ctx.fillText("P", 0, 0);
 
         ctx.restore();
@@ -290,7 +294,7 @@ export const ParkingMapIsometric = ({ floor, highlightIndex }: ParkingMapIsometr
 
       const midSouthX = (bp3.x + tp2.x) / 2;
       const midSouthY = (bp3.y + tp2.y) / 2;
-      ctx.fillStyle = "white";
+      ctx.fillStyle = isDark ? "white" : "rgba(30, 58, 138, 0.8)";
       ctx.font = "bold 16px sans-serif";
       ctx.fillText("14", midSouthX, midSouthY);
 
@@ -308,18 +312,18 @@ export const ParkingMapIsometric = ({ floor, highlightIndex }: ParkingMapIsometr
       const centerTop = project(pillX + pillW / 2, pillY + pillH / 2, pillZ);
       ctx.beginPath();
       ctx.arc(centerTop.x, centerTop.y, 2, 0, Math.PI * 2);
-      ctx.fillStyle = "white";
+      ctx.fillStyle = isDark ? "white" : "rgba(59, 130, 246, 0.8)";
       ctx.fill();
       ctx.save();
       ctx.shadowBlur = 10;
-      ctx.shadowColor = "white";
+      ctx.shadowColor = isDark ? "white" : "rgba(59, 130, 246, 0.5)";
       ctx.stroke();
       ctx.restore();
 
       // --- 5. Compass ---
       ctx.save();
-      ctx.globalAlpha = 0.4;
-      ctx.fillStyle = "#6b7280";
+      ctx.globalAlpha = isDark ? 0.4 : 0.6;
+      ctx.fillStyle = isDark ? "#6b7280" : "#374151";
       ctx.font = "italic 10px monospace";
       ctx.fillText("N", 20, 20);
       ctx.fillRect(20, 25, 1, 15);
@@ -330,7 +334,7 @@ export const ParkingMapIsometric = ({ floor, highlightIndex }: ParkingMapIsometr
     draw();
 
     // Redraw on floor change
-  }, [floor, highlightIndex]); // Added highlightIndex to dependencies
+  }, [floor, highlightIndex, isDark]); // Added isDark to dependencies
 
   return (
     <div className="relative w-full aspect-square max-w-[320px] mx-auto flex items-center justify-center p-8 overflow-hidden">

@@ -31,7 +31,7 @@ export const SplashScreen = ({ onComplete }: SplashScreenProps) => {
   return (
     <div
       className={cn(
-        "fixed inset-0 z-[100] flex flex-col items-center justify-center bg-secondary-blue-dark-950 transition-all duration-700 ease-in-out font-[family-name:var(--font-daki)]",
+        "fixed inset-0 z-[100] flex flex-col items-center justify-center bg-background transition-all duration-700 ease-in-out font-[family-name:var(--font-daki)]",
         isFadingOut ? "opacity-0 pointer-events-none scale-110" : "opacity-100"
       )}
     >
@@ -50,19 +50,19 @@ export const SplashScreen = ({ onComplete }: SplashScreenProps) => {
             src="/logo.png"
             alt="Logo"
             fill
-            className="object-contain"
+            className="object-contain dark:brightness-100 brightness-0 invert-0 dark:invert-0"
             priority
           />
         </div>
 
         {/* Text content */}
         <div className="text-center animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-300 fill-mode-both">
-          <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-white mb-2">
+          <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground mb-2">
             <span className="text-brand-500 drop-shadow-[0_0_15px_rgba(0,244,112,0.3)]">
               DAOU DIGITAL SQUARE
             </span>
           </h2>
-          <p className="text-xs sm:text-sm text-gray-200 font-medium tracking-widest uppercase">
+          <p className="text-xs sm:text-sm text-muted-foreground font-medium tracking-widest uppercase">
             전기차 충전 스테이션 현황
           </p>
         </div>

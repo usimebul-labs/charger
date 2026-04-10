@@ -11,11 +11,11 @@ export const StatusBadge = ({ status, lastStatusChangedAt }: StatusBadgeProps) =
   const isChargingStatus = status.code === "6";
 
   const colors: Record<string, string> = {
-    "9": "bg-warning-500/10 text-warning-400 border-warning-500/20 shadow-[0_0_15px_-3px_rgba(249,162,7,0.3)]",
-    "8": "bg-warning-500/10 text-warning-400 border-warning-500/20 shadow-[0_0_15px_-3px_rgba(249,162,7,0.3)]",
-    "2": "bg-success-500/10 text-success-400 border-success-500/20 shadow-[0_0_15px_-3px_rgba(0,242,38,0.3)]",
-    "6": "bg-secondary-blue-500/10 text-secondary-blue-400 border-secondary-blue-500/20",
-    "other": "bg-error-500/10 text-error-400 border-error-500/20",
+    "9": "bg-warning-500/10 text-warning-text border-warning-500/20 shadow-[0_0_15px_-3px_rgba(249,162,7,0.3)]",
+    "8": "bg-warning-500/10 text-warning-text border-warning-500/20 shadow-[0_0_15px_-3px_rgba(249,162,7,0.3)]",
+    "2": "bg-success-500/10 text-success-text border-success-500/20 shadow-[0_0_15px_-3px_rgba(0,242,38,0.3)]",
+    "6": "bg-secondary-blue-500/10 text-info-text border-secondary-blue-500/20",
+    "other": "bg-error-500/10 text-error-text border-error-500/20",
   };
 
   return (

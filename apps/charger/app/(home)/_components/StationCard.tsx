@@ -15,13 +15,13 @@ export const StationCard = ({ station, index }: StationCardProps) => {
 
   const typeConfig: Record<string, { accent: string; bg: string; border: string; glow: string }> = {
     "06": {
-      accent: "text-warning-400",
+      accent: "text-warning-text",
       bg: "from-warning-500/10 to-transparent",
       border: "border-warning-500/20",
       glow: "shadow-warning-500/5",
     },
     "02": {
-      accent: "text-secondary-blue-400",
+      accent: "text-info-text",
       bg: "from-secondary-blue-500/10 to-transparent",
       border: "border-secondary-blue-500/20",
       glow: "shadow-secondary-blue-500/5",
@@ -36,14 +36,14 @@ export const StationCard = ({ station, index }: StationCardProps) => {
     <div
       onClick={() => setSelectedStation(station, index)}
       dir="ltr"
-      className={`relative bg-gray-800/40 rounded-2xl p-3 sm:p-4 border backdrop-blur-3xl transition-all duration-500 overflow-hidden group flex flex-col items-center text-center cursor-pointer
+      className={`relative bg-card/40 rounded-2xl p-3 sm:p-4 border backdrop-blur-3xl transition-all duration-500 overflow-hidden group flex flex-col items-center text-center cursor-pointer
       ${isAvailableStatus
           ? (isWarningStatus
             ? `border-warning-500/40 bg-gradient-to-br ${currentType!.bg} shadow-[0_0_30px_-10px_rgba(249,162,7,0.2)] animate-in fade-in duration-1000`
             : `border-success-500/40 bg-gradient-to-br ${currentType!.bg} shadow-[0_0_30px_-10px_rgba(0,242,38,0.2)] animate-in fade-in duration-1000`)
-          : `border-gray-800 hover:border-gray-700`
+          : `border-border hover:border-border/60`
         }
-      hover:translate-y-[-6px] hover:shadow-2xl shadow-black/40 active:scale-95
+      hover:translate-y-[-6px] hover:shadow-2xl shadow-black/10 dark:shadow-black/40 active:scale-95
     `}>
       {/* Tap Indicator Hint */}
       <div className="absolute top-2 left-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -60,13 +60,13 @@ export const StationCard = ({ station, index }: StationCardProps) => {
       </div>
 
       <div className="flex flex-col items-center mb-2 relative z-10 w-full gap-1">
-        <span className="text-[10px] sm:text-[11px] font-bold text-gray-200 tracking-widest uppercase">
+        <span className="text-[10px] sm:text-[11px] font-bold text-foreground/70 dark:text-gray-200 tracking-widest uppercase">
           ID {station.searchKey}
         </span>
       </div>
 
       <div className="flex flex-col items-center gap-3 relative z-10">
-        <div className={`relative p-3 sm:p-4 rounded-2xl bg-gray-900/40 border-2 ${currentType!.border} ${currentType!.accent} shadow-2xl backdrop-blur-sm group-hover:scale-110 transition-all duration-500
+        <div className={`relative p-3 sm:p-4 rounded-2xl bg-muted/40 border-2 ${currentType!.border} ${currentType!.accent} shadow-2xl backdrop-blur-sm group-hover:scale-110 transition-all duration-500
           ${isRapid ? 'shadow-warning-500/10' : 'shadow-secondary-blue-500/10'}
         `}>
           {/* Subtle glow behind the icon */}

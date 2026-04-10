@@ -94,6 +94,19 @@
 
   --animate-spin-once: spin-once 0.7s ease-in-out;
 
+  /* Semantic Colors */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-success-text: var(--success-text);
+  --color-warning-text: var(--warning-text);
+  --color-info-text: var(--info-text);
+  --color-error-text: var(--error-text);
+
   @keyframes spin-once {
     from {
       transform: rotate(0deg);
@@ -105,9 +118,39 @@
   }
 }
 
+:root {
+  --background: #ffffff;
+  --foreground: #161a25; /* gray-950 */
+  --card: #ffffff;
+  --card-foreground: #161a25;
+  --border: #eaedf4; /* gray-100 */
+  --muted: #f5f6fa; /* gray-50 */
+  --muted-foreground: #59729e; /* gray-500 */
+  --success-text: #009e18; /* success-700 */
+  --warning-text: #b75506; /* warning-700 */
+  --info-text: #2e2ad8; /* secondary-blue-700 */
+  --error-text: #e70000; /* error-700 */
+}
+
+.dark {
+  --background: #04030f; /* secondary-blue-dark-950 */
+  --foreground: #f5f6fa; /* gray-50 */
+  --card: #181466; /* secondary-blue-dark-900 */
+  --card-foreground: #eaedf4; /* gray-100 */
+  --border: #323f5a; /* gray-800 */
+  --muted: #161a25; /* gray-950 */
+  --muted-foreground: #59729e; /* gray-500 */
+  --success-text: #00f470; /* brand-500 or success-400 */
+  --warning-text: #ffc72e; /* warning-400 */
+  --info-text: #9cb3ff; /* secondary-blue-300 */
+  --error-text: #ff8b8b; /* error-300 */
+}
+
 html,
 body {
   box-sizing: border-box;
   overflow-x: hidden;
-  background-color: var(--color-secondary-blue-dark-950);
+  background-color: var(--background);
+  color: var(--foreground);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }

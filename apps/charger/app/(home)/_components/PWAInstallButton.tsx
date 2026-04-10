@@ -74,7 +74,7 @@ export const PWAInstallButton = () => {
             >
                 <button
                     onClick={handleInstallClick}
-                    className="group relative flex items-center justify-center p-3 bg-brand-500 text-secondary-blue-dark-950 rounded-full shadow-[0_0_30px_-5px_var(--color-brand-500)] hover:scale-110 active:scale-95 transition-all duration-300 border border-brand-300/30 overflow-hidden"
+                    className="group relative flex items-center justify-center p-3 bg-brand-500 text-background rounded-full shadow-[0_0_30px_-5px_var(--color-brand-500)] hover:scale-110 active:scale-95 transition-all duration-300 border border-brand-300/30 overflow-hidden dark:text-secondary-blue-dark-950"
                     aria-label="홈 화면에 추가"
                 >
                     {/* Background Shine Effect */}
@@ -84,7 +84,7 @@ export const PWAInstallButton = () => {
 
                     {/* Hover text label */}
                     <div className="absolute right-full mr-3 translate-x-3 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none">
-                        <div className="bg-secondary-blue-dark-900 border border-brand-500/30 text-brand-500 px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest whitespace-nowrap shadow-xl">
+                        <div className="bg-card border border-brand-500/30 text-brand-500 px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest whitespace-nowrap shadow-xl dark:bg-secondary-blue-dark-900">
                             앱으로 설치하기
                         </div>
                     </div>
