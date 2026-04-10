@@ -51,6 +51,29 @@ export async function getStations() {
         return [];
     }
 
+    // 현재 충전 중('6')인 충전기들의 최신 상태 변경 로그 조회
+    const chargingStationIds = data
+        .filter((item: any) => item.charger_statuses?.code === '6')
+        .map((item: any) => item.id);
+
+    let statusLogsMap: Record<number, string> = {};
+    if (chargingStationIds.length > 0) {
+        const { data: logs } = await supabase
+            .from('charger_status_logs')
+            .select('charger_id, changed_at')
+            .eq('new_status_code', '6')
+            .in('charger_id', chargingStationIds)
+            .order('changed_at', { ascending: false });
+
+        if (logs) {
+            logs.forEach((log) => {
+                if (log.charger_id && !statusLogsMap[log.charger_id]) {
+                    statusLogsMap[log.charger_id] = log.changed_at!;
+                }
+            });
+        }
+    }
+
     const mapedData: ChargerInfo[] = data.map((item: any) => ({
         id: item.id,
         searchKey: item.search_key,
@@ -64,6 +87,7 @@ export async function getStations() {
             ...item.charger_types,
             adapter: item.charger_types?.adapter
         },
+        lastStatusChangedAt: statusLogsMap[item.id]
     }));
 
 

@@ -5,6 +5,7 @@ import { ParkingMapIsometric } from "./ParkingMapIsometric";
 import { cn } from "../../../lib/utils";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { StatusBadge } from "./StatusBadge";
 
 export const StationMapModal = () => {
   const { selectedStation, selectedStationIndex, setSelectedStation } = useStationStore();
@@ -102,25 +103,7 @@ export const StationMapModal = () => {
 
           <div className="mt-4 bg-gray-950/40 border border-white/5 rounded-2xl p-4 flex flex-col gap-3">
             <div className="flex items-center gap-3">
-              {(() => {
-                const code = selectedStation?.status.code;
-                const isWarning = code === "8" || code === "9";
-                const isSuccess = code === "2";
-                const isBlue = code === "6" || code === "1";
-                
-                let colorClasses = "bg-error-500/10 border-error-500/20 text-error-400";
-                if (isWarning) colorClasses = "bg-warning-500/10 border-warning-500/20 text-warning-400";
-                else if (isSuccess) colorClasses = "bg-success-500/10 border-success-500/20 text-success-400";
-                else if (isBlue) colorClasses = "bg-secondary-blue-500/10 border-secondary-blue-500/20 text-secondary-blue-400";
-
-                return (
-                  <div className={cn("px-3 py-1 border rounded-lg min-w-[66px]", colorClasses.split(' ').slice(0, 2).join(' '))}>
-                    <span className={cn("text-[10px] font-black uppercase tracking-widest text-center", colorClasses.split(' ')[2])}>
-                      {selectedStation?.status.value}
-                    </span>
-                  </div>
-                );
-              })()}
+              <StatusBadge status={selectedStation.status} lastStatusChangedAt={selectedStation.lastStatusChangedAt} />
               <div className="h-4 w-px bg-white/10"></div>
               <span className="text-xs text-gray-300 font-medium leading-relaxed">
                 {selectedStation?.status.desc}

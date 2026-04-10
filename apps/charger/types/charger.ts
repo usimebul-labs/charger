@@ -18,4 +18,5 @@ export interface ChargerInfo {
     type: ChargerType;
     capacity: string;
     floor: "B3" | "B4" | "B5";
+    lastStatusChangedAt?: string;
 }
