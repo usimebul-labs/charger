@@ -70,7 +70,7 @@ export const PWAInstallButton = () => {
                 initial={{ opacity: 0, scale: 0.8, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.8, y: 20 }}
-                className="absolute bottom-18 right-6 z-[60]"
+                className="absolute bottom-24 right-6 z-[60]"
             >
                 <button
                     onClick={handleInstallClick}

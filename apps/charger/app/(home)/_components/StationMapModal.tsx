@@ -103,7 +103,7 @@ export const StationMapModal = () => {
 
           <div className="mt-4 bg-gray-950/40 border border-white/5 rounded-2xl p-4 flex flex-col gap-3">
             <div className="flex items-center gap-3">
-              <StatusBadge status={selectedStation.status} lastStatusChangedAt={selectedStation.lastStatusChangedAt} />
+              <StatusBadge status={selectedStation!.status} lastStatusChangedAt={selectedStation!.lastStatusChangedAt} />
               <div className="h-4 w-px bg-white/10"></div>
               <span className="text-xs text-gray-300 font-medium leading-relaxed">
                 {selectedStation?.status.desc}
