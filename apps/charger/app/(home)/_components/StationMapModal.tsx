@@ -56,7 +56,7 @@ export const StationMapModal = () => {
 
       {/* Modal Content */}
       <div className={cn(
-        "relative w-full max-w-lg bg-card border border-border/50 rounded-[2rem] overflow-hidden shadow-2xl backdrop-blur-2xl transition-all duration-300 transform",
+        "relative w-full max-w-lg bg-card dark:bg-card/80 dark:backdrop-brightness-110 border border-border/50 rounded-[2rem] overflow-hidden shadow-2xl backdrop-blur-2xl transition-all duration-300 transform",
         isClosing ? "scale-95 translate-y-4" : "scale-100 translate-y-0 animate-in zoom-in-95 fade-in duration-300"
       )}>
         {/* Header */}

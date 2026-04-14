@@ -60,7 +60,7 @@ export const StationCard = ({ station, index }: StationCardProps) => {
       </div>
 
       <div className="flex flex-col items-center mb-2 relative z-10 w-full gap-1">
-        <span className="text-[10px] sm:text-[11px] font-bold text-foreground/70 dark:text-gray-200 tracking-widest uppercase">
+        <span className="text-[10px] sm:text-[11px] font-bold text-muted-foreground tracking-widest uppercase">
           ID {station.searchKey}
         </span>
       </div>
