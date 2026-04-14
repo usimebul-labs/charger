@@ -117,8 +117,8 @@ export const DashboardButtons = () => {
                             }
                         }}
                         className={`flex items-center gap-2 px-3 py-1.5 rounded-2xl text-[10px] font-black tracking-widest uppercase transition-all duration-300 border
-                                ? "bg-warning-500/10 text-warning-500 border-warning-500/30 shadow-[0_0_20px_-5px_rgba(249,162,7,0.2)] active:scale-95"
-                                : "bg-muted/20 text-muted-foreground/40 border-border/10"
+                                ? "bg-warning-500/10 text-warning-600 dark:text-warning-500 border-warning-500/30 shadow-[0_0_20px_-5px_rgba(249,162,7,0.2)] active:scale-95"
+                                : "bg-muted/50 hover:bg-muted text-muted-foreground hover:text-foreground border-border"
                             }`}
                     >
                         <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
@@ -158,8 +158,8 @@ export const DashboardButtons = () => {
                         }}
                         className={`flex items-center gap-2 px-3 py-1.5 rounded-2xl text-[10px] font-black tracking-widest uppercase transition-all duration-300 border
                             ${hasSlowCharger && availableSlowCount === 0
-                                ? "bg-secondary-blue-500/10 text-secondary-blue-500 border-secondary-blue-500/30 shadow-[0_0_20px_-5px_rgba(71,84,255,0.2)] active:scale-95"
-                                : "bg-muted/20 text-muted-foreground/40 border-border/10"
+                                ? "bg-secondary-blue-500/10 text-secondary-blue-600 dark:text-secondary-blue-500 border-secondary-blue-500/30 shadow-[0_0_20px_-5px_rgba(71,84,255,0.2)] active:scale-95"
+                                : "bg-muted/50 hover:bg-muted text-muted-foreground hover:text-foreground border-border"
                             }`}
                     >
                         <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
@@ -192,8 +192,8 @@ export const DashboardButtons = () => {
             <button
                 onClick={toggleShowOnlyAvailable}
                 className={`flex items-center gap-2 px-3 py-1.5 rounded-2xl text-[10px] font-black tracking-widest uppercase transition-all duration-300 border ${showOnlyAvailable
-                    ? "bg-success-500/10 text-success-400 border-success-500/30 shadow-[0_0_20px_-5px_rgba(0,242,38,0.2)]"
-                    : "bg-muted border-border hover:border-border/60 dark:bg-gray-800/50 dark:border-gray-800"
+                    ? "bg-success-500/10 text-success-600 dark:text-success-400 border-success-500/30 shadow-[0_0_20px_-5px_rgba(0,242,38,0.2)]"
+                    : "bg-muted/50 hover:bg-muted text-muted-foreground hover:text-foreground border-border"
                     }`}
             >
                 <div className={`relative flex items-center justify-center w-3 h-3`}>

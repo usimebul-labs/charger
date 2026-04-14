@@ -36,7 +36,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children, }: Readonly<{ children: React.ReactNode; }>) {
   return (
-    <html lang="en">
+    <html lang="ko">
       <body className={`${geistSans.variable} ${geistMono.variable} ${daki.variable} h-screen overflow-hidden`}>
         <SpeedInsights />
         <Analytics />

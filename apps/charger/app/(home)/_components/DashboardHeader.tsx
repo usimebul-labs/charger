@@ -69,9 +69,9 @@ export const DashboardHeader = () => {
           </span>
         </h1>
 
-        <div className="flex items-center justify-end pt-4">
+        <div className="flex items-center justify-between pt-4">
+          <ThemeToggle />
           <div className="flex items-center gap-3">
-            <ThemeToggle />
             <div className="flex items-center gap-3 text-[10px] sm:text-xs text-muted-foreground font-black uppercase tracking-widest">
               <div className="flex items-center gap-1.5">
                 <svg className="w-3 h-3 text-info-text" fill="currentColor" viewBox="0 0 24 24">
