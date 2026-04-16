@@ -79,7 +79,7 @@ export const PWAInstallButton = () => {
                     initial={{ opacity: 0, scale: 0.8, y: 20 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.8, y: 20 }}
-                    className="absolute top-195 right-6 z-[60]"
+                    className="absolute bottom-24 right-6 z-[60]"
                 >
                     <motion.div
                         className="flex items-center bg-brand-500 rounded-full shadow-[0_0_30px_-5px_var(--color-brand-500)] border border-brand-300/30 overflow-hidden text-background dark:text-secondary-blue-dark-950 h-12"
