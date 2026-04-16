@@ -1,10 +1,10 @@
-import { SpeedInsights } from "@vercel/speed-insights/next"
-import { Analytics } from "@vercel/analytics/next"
-import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
+import { BottomNav } from "./_components/BottomNav";
 import "./globals.css";
 import Providers from "./providers";
-import type { Viewport } from 'next'
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -40,7 +40,17 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
       <body className={`${geistSans.variable} ${geistMono.variable} ${daki.variable} h-svh overflow-hidden`}>
         <SpeedInsights />
         <Analytics />
-        <Providers>{children}</Providers>
+        <Providers>
+          <div className="h-svh bg-background flex justify-center selection:bg-brand-500/30 font-[family-name:var(--font-daki)]">
+            {/* Mobile Frame Container */}
+            <div className="w-full max-w-[480px] h-svh bg-background border-x border-border/20 relative flex flex-col overflow-hidden">
+              <div className="flex-1 overflow-y-auto pb-[68px]">
+                {children}
+              </div>
+              <BottomNav />
+            </div>
+          </div>
+        </Providers>
       </body>
     </html>
   );
