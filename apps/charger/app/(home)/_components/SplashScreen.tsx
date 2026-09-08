@@ -31,7 +31,7 @@ export const SplashScreen = ({ onComplete }: SplashScreenProps) => {
   return (
     <div
       className={cn(
-        "fixed inset-0 z-[100] flex flex-col items-center justify-center bg-background transition-all duration-700 ease-in-out font-[family-name:var(--font-daki)]",
+        "fixed inset-0 z-[100] flex flex-col items-center justify-center bg-background transition-all duration-700 ease-in-out",
         isFadingOut ? "opacity-0 pointer-events-none scale-110" : "opacity-100"
       )}
     >
@@ -58,7 +58,7 @@ export const SplashScreen = ({ onComplete }: SplashScreenProps) => {
         {/* Text content */}
         <div className="text-center animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-300 fill-mode-both">
           <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground mb-2">
-            <span className="text-brand-500 drop-shadow-[0_0_15px_rgba(0,244,112,0.3)]">
+            <span className="text-brand-500 drop-shadow-[0_0_15px_rgba(61,220,132,0.35)]">
               DAOU DIGITAL SQUARE
             </span>
           </h2>

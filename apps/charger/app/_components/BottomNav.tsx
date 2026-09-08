@@ -1,9 +1,9 @@
 "use client";
 
+import { cn } from "@/lib/utils";
+import { BarChart2, Home, Lightbulb } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, BarChart2, Lightbulb } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 const navItems = [
   {
@@ -27,7 +27,7 @@ export const BottomNav = () => {
   const pathname = usePathname();
 
   return (
-    <nav className="absolute bottom-0 left-0 right-0 z-50 h-[68px] bg-background/80 backdrop-blur-md border-t border-border/10 flex items-center justify-around px-2 pt-2 pb-[env(safe-area-inset-bottom)]">
+    <nav className="relative z-20 grid flex-none grid-cols-3 border-t border-border bg-background/98 px-1.5 pt-[5px] backdrop-blur-md pb-[calc(env(safe-area-inset-bottom)+0.5rem)]">
       {navItems.map((item) => {
         const isActive = pathname === item.href;
         const Icon = item.icon;
@@ -37,16 +37,12 @@ export const BottomNav = () => {
             key={item.href}
             href={item.href}
             className={cn(
-              "flex flex-col items-center justify-center w-full h-full space-y-1 transition-colors duration-200",
-              isActive
-                ? "text-brand-500"
-                : "text-muted-foreground hover:text-foreground"
+              "flex flex-col items-center gap-[3px] pb-0.5 pt-[5px] transition-colors",
+              isActive ? "text-brand-500" : "text-muted-foreground hover:text-foreground"
             )}
           >
-            <Icon className={cn("w-5 h-5", isActive && "stroke-[2.5px]")} />
-            <span className={cn("text-[10px] tracking-wide", isActive ? "font-bold" : "font-medium")}>
-              {item.name}
-            </span>
+            <Icon className={cn("h-4 w-4", isActive && "stroke-[2.4px]")} />
+            <span className="text-[10px] font-semibold tracking-[-0.2px]">{item.name}</span>
           </Link>
         );
       })}

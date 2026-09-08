@@ -1,11 +1,12 @@
 "use client"
 
-import { DashboardButtons } from "./_components/DashboardButtons";
+import { useEffect, useState } from "react";
+import { ActionBar } from "./_components/ActionBar";
 import { DashboardHeader } from "./_components/DashboardHeader";
-import { StationGrid } from "./_components/StationGrid";
-import { PWAInstallButton } from "./_components/PWAInstallButton";
-import { useState, useEffect } from "react";
+import { Legend } from "./_components/Legend";
 import { SplashScreen } from "./_components/SplashScreen";
+import { StationGrid } from "./_components/StationGrid";
+import { SummaryCard } from "./_components/SummaryCard";
 
 export default function Home() {
   const [showSplash, setShowSplash] = useState(true);
@@ -24,13 +25,17 @@ export default function Home() {
   return (
     <>
       {showSplash && <SplashScreen onComplete={handleSplashComplete} />}
-      <div className="flex flex-col min-h-full">
+
+      <div className="flex min-h-0 flex-1 flex-col">
         <DashboardHeader />
-        <main className="flex-1 px-6 pt-2 pb-8">
-          <DashboardButtons />
+
+        <div className="flex min-h-0 flex-1 flex-col overflow-y-auto px-3.5 pb-1.5 pt-2.5">
+          <SummaryCard />
           <StationGrid />
-        </main>
-        <PWAInstallButton />
+          <Legend />
+        </div>
+
+        <ActionBar />
       </div>
     </>
   );

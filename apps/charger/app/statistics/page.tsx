@@ -2,7 +2,7 @@ import { BarChart2 } from "lucide-react";
 
 export default function StatisticsPage() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-[70vh] p-6 text-center">
+    <div className="flex flex-1 flex-col items-center justify-center overflow-y-auto p-6 text-center">
       <div className="w-16 h-16 rounded-full bg-brand-500/10 flex items-center justify-center mb-6">
         <BarChart2 className="w-8 h-8 text-brand-500" />
       </div>

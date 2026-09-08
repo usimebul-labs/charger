@@ -1,111 +1,143 @@
 @import "tailwindcss";
 
 @theme {
-  /* Brand */
-  --color-brand-50: #edfff5;
-  --color-brand-100: #d5ffe9;
-  --color-brand-200: #aeffd3;
-  --color-brand-300: #70ffb3;
-  --color-brand-400: #2bfd8b;
-  --color-brand-500: #00f470;
-  --color-brand-600: #00c053;
-  --color-brand-700: #009645;
-  --color-brand-800: #06753a;
-  --color-brand-900: #076032;
-  --color-brand-950: #00371a;
+  /* ------------------------------------------------------------------ */
+  /* Brand — mockup accent #3DDC84                                       */
+  /* ------------------------------------------------------------------ */
+  --color-brand-50: #eafcf2;
+  --color-brand-100: #cff8e1;
+  --color-brand-200: #a3f0c6;
+  --color-brand-300: #72e6a7;
+  --color-brand-400: #54e695;
+  --color-brand-500: #3ddc84;
+  --color-brand-600: #29b96a;
+  --color-brand-700: #1f9154;
+  --color-brand-800: #197243;
+  --color-brand-900: #155d38;
+  --color-brand-950: #07130c;
 
-  /* Success */
-  --color-success-50: #ecfff0;
-  --color-success-100: #d3ffdc;
-  --color-success-200: #aaffbb;
-  --color-success-300: #69ff89;
-  --color-success-400: #21ff4c;
-  --color-success-500: #00f226;
-  --color-success-600: #00ca1b;
-  --color-success-700: #009e18;
-  --color-success-800: #007517;
-  --color-success-900: #026517;
-  --color-success-950: #00390a;
+  /* Success — same green family (충전대기) */
+  --color-success-50: #eafcf2;
+  --color-success-100: #cff8e1;
+  --color-success-200: #a3f0c6;
+  --color-success-300: #72e6a7;
+  --color-success-400: #4fe195;
+  --color-success-500: #3ddc84;
+  --color-success-600: #29b96a;
+  --color-success-700: #1f9154;
+  --color-success-800: #197243;
+  --color-success-900: #155d38;
+  --color-success-950: #06301b;
+
+  /* Warning — mockup #FF9F45 (충전완료 · 케이블) */
+  --color-warning-50: #fff6ec;
+  --color-warning-100: #ffebd6;
+  --color-warning-200: #ffd5ac;
+  --color-warning-300: #ffbc7b;
+  --color-warning-400: #ffa95c;
+  --color-warning-500: #ff9f45;
+  --color-warning-600: #ee7c18;
+  --color-warning-700: #c55e10;
+  --color-warning-800: #9c4a13;
+  --color-warning-900: #7e3d14;
+  --color-warning-950: #441d07;
 
   /* Error */
-  --color-error-50: #ffeeee;
-  --color-error-100: #ffdada;
-  --color-error-200: #ffbbbb;
-  --color-error-300: #ff8b8b;
-  --color-error-400: #ff4949;
-  --color-error-500: #ff1111;
-  --color-error-600: #ff0000;
-  --color-error-700: #e70000;
-  --color-error-800: #be0000;
-  --color-error-900: #8f0000;
-  --color-error-950: #560000;
+  --color-error-50: #fff0f0;
+  --color-error-100: #ffdddd;
+  --color-error-200: #ffc0c0;
+  --color-error-300: #ff9797;
+  --color-error-400: #ff6b6b;
+  --color-error-500: #f84b4b;
+  --color-error-600: #e52d2d;
+  --color-error-700: #c11f1f;
+  --color-error-800: #9f1d1d;
+  --color-error-900: #841e1e;
+  --color-error-950: #480b0b;
 
-  /* Warning */
-  --color-warning-50: #fffbeb;
-  --color-warning-100: #fff5c6;
-  --color-warning-200: #ffe888;
-  --color-warning-300: #ffd74a;
-  --color-warning-400: #ffc72e;
-  --color-warning-500: #f9a207;
-  --color-warning-600: #dd7902;
-  --color-warning-700: #b75506;
-  --color-warning-800: #94410c;
-  --color-warning-900: #7a350d;
-  --color-warning-950: #461b02;
+  /* Gray — anchored on the mockup surfaces (#0D1117 / #1B222C / #242D39) */
+  --color-gray-50: #f4f6f8;
+  --color-gray-100: #e7ebf0;
+  --color-gray-200: #cdd5df;
+  --color-gray-300: #a6b2c1;
+  --color-gray-400: #77869a;
+  --color-gray-500: #5a6879;
+  --color-gray-600: #47525f;
+  --color-gray-700: #3a424d;
+  --color-gray-800: #242d39;
+  --color-gray-900: #1b222c;
+  --color-gray-950: #0d1117;
 
-  /* Gray */
-  --color-gray-50: #f5f6fa;
-  --color-gray-100: #eaedf4;
-  --color-gray-200: #d1d8e6;
-  --color-gray-300: #a8b6d1;
-  --color-gray-400: #7a90b6;
-  --color-gray-500: #59729e;
-  --color-gray-600: #455984;
-  --color-gray-700: #39486b;
-  --color-gray-800: #323f5a;
-  --color-gray-900: #2d364d;
-  --color-gray-950: #161a25;
-
-  /* Secondary Blue */
-  --color-secondary-blue-50: #ecf2ff;
-  --color-secondary-blue-100: #dde7ff;
-  --color-secondary-blue-200: #c2d2ff;
-  --color-secondary-blue-300: #9cb3ff;
-  --color-secondary-blue-400: #7589ff;
-  --color-secondary-blue-500: #4754ff;
-  --color-secondary-blue-600: #3836f5;
-  --color-secondary-blue-700: #2e2ad8;
-  --color-secondary-blue-800: #2625ae;
-  --color-secondary-blue-900: #262889;
-  --color-secondary-blue-950: #171650;
+  /* Secondary Blue — mockup #4CA5FF (충전중) */
+  --color-secondary-blue-50: #edf6ff;
+  --color-secondary-blue-100: #d8ecff;
+  --color-secondary-blue-200: #b4daff;
+  --color-secondary-blue-300: #85c3ff;
+  --color-secondary-blue-400: #60b0ff;
+  --color-secondary-blue-500: #4ca5ff;
+  --color-secondary-blue-600: #2384e8;
+  --color-secondary-blue-700: #1668be;
+  --color-secondary-blue-800: #175697;
+  --color-secondary-blue-900: #1a4977;
+  --color-secondary-blue-950: #112c4a;
 
   /* Secondary Blue Dark */
-  --color-secondary-blue-dark-50: #f2f1fe;
-  --color-secondary-blue-dark-100: #e5e3fb;
-  --color-secondary-blue-dark-200: #c2c0f7;
-  --color-secondary-blue-dark-300: #8988f1;
-  --color-secondary-blue-dark-400: #484ae8;
-  --color-secondary-blue-dark-500: #2122d6;
-  --color-secondary-blue-dark-600: #1613b6;
-  --color-secondary-blue-dark-700: #151094;
-  --color-secondary-blue-dark-800: #15127a;
-  --color-secondary-blue-dark-900: #181466;
-  --color-secondary-blue-dark-950: #04030f;
+  --color-secondary-blue-dark-50: #eef4fb;
+  --color-secondary-blue-dark-100: #dbe7f5;
+  --color-secondary-blue-dark-200: #b6cde9;
+  --color-secondary-blue-dark-300: #82abd8;
+  --color-secondary-blue-dark-400: #4a83c2;
+  --color-secondary-blue-dark-500: #2b62a2;
+  --color-secondary-blue-dark-600: #1f4b81;
+  --color-secondary-blue-dark-700: #1b3d68;
+  --color-secondary-blue-dark-800: #193353;
+  --color-secondary-blue-dark-900: #172b44;
+  --color-secondary-blue-dark-950: #0d1117;
 
-  --animate-spin-once: spin-once 0.7s ease-in-out;
+  /* ------------------------------------------------------------------ */
+  /* Typography                                                          */
+  /* ------------------------------------------------------------------ */
+  --font-sans: Pretendard, var(--font-geist-sans), -apple-system,
+    BlinkMacSystemFont, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, Menlo, monospace;
+  --font-display: var(--font-daki), Pretendard, sans-serif;
 
-  /* Semantic Colors */
+  /* ------------------------------------------------------------------ */
+  /* Semantic surfaces — resolved per theme below                        */
+  /* ------------------------------------------------------------------ */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
+  --color-surface: var(--surface);
+  --color-elevated: var(--elevated);
+  --color-elevated-hover: var(--elevated-hover);
   --color-border: var(--border);
+  --color-line-strong: var(--line-strong);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
-  --color-success-text: var(--success-text);
-  --color-warning-text: var(--warning-text);
-  --color-info-text: var(--info-text);
-  --color-error-text: var(--error-text);
+  --color-subtle-foreground: var(--subtle-foreground);
+  --color-faint-foreground: var(--faint-foreground);
+
+  /* Charger states — the mockup's three-colour system */
+  --color-free: var(--free);
+  --color-busy: var(--busy);
+  --color-done: var(--done);
+  --color-off: var(--off);
+  --color-on-brand: var(--on-brand);
+
+  --color-success-text: var(--free);
+  --color-warning-text: var(--done);
+  --color-info-text: var(--busy);
+  --color-error-text: var(--off);
+
+  /* ------------------------------------------------------------------ */
+  /* Motion                                                              */
+  /* ------------------------------------------------------------------ */
+  --animate-spin-once: spin-once 0.7s linear;
+  --animate-sheet-up: sheet-up 0.26s cubic-bezier(0.22, 0.9, 0.25, 1);
+  --animate-fade-in: fade-in 0.18s ease-out;
+  --animate-breathe: breathe 2.4s ease-in-out infinite;
 
   @keyframes spin-once {
     from {
@@ -116,53 +148,95 @@
       transform: rotate(360deg);
     }
   }
+
+  @keyframes sheet-up {
+    from {
+      transform: translateY(110%);
+    }
+
+    to {
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes breathe {
+
+    0%,
+    100% {
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 0.25;
+    }
+  }
 }
 
+/* -------------------------------------------------------------------- */
+/* Light theme — derived from the mockup, contrast-corrected for a       */
+/* light ground (the mockup itself only specifies dark).                 */
+/* -------------------------------------------------------------------- */
 :root {
-  --background: #ffffff;
-  --foreground: #161a25;
-  /* gray-950 */
+  --background: #f4f6f8;
+  --foreground: #15181c;
   --card: #ffffff;
-  --card-foreground: #161a25;
-  --border: #eaedf4;
-  /* gray-100 */
-  --muted: #f5f6fa;
-  /* gray-50 */
-  --muted-foreground: #39486b;
-  /* gray-700 */
-  --success-text: #009e18;
-  /* success-700 */
-  --warning-text: #b75506;
-  /* warning-700 */
-  --info-text: #2e2ad8;
-  /* secondary-blue-700 */
-  --error-text: #e70000;
-  /* error-700 */
+  --card-foreground: #15181c;
+  --surface: #ffffff;
+  --elevated: #eef1f5;
+  --elevated-hover: #e3e8ef;
+  --border: rgba(21, 24, 28, 0.09);
+  --line-strong: rgba(21, 24, 28, 0.16);
+  --muted: #eef1f5;
+  --muted-foreground: rgba(21, 24, 28, 0.5);
+  --subtle-foreground: rgba(21, 24, 28, 0.62);
+  --faint-foreground: rgba(21, 24, 28, 0.35);
+
+  --free: #12a05c;
+  --busy: #1e7fd6;
+  --done: #c96a10;
+  --off: #d93030;
+  --on-brand: #07130c;
+
+  --header-gradient: linear-gradient(180deg, #ffffff 0%, #f4f6f8 100%);
+  --scrim: rgba(21, 24, 28, 0.35);
 }
 
+/* -------------------------------------------------------------------- */
+/* Dark theme — the mockup's exact values                                */
+/* -------------------------------------------------------------------- */
 .dark {
-  --background: #161a25;
-  /* gray-950 */
-  --foreground: #f5f6fa;
-  /* gray-50 */
-  --card: #2d364d;
-  /* gray-900 */
-  --card-foreground: #eaedf4;
-  /* gray-100 */
-  --border: #323f5a;
-  /* gray-800 */
-  --muted: #2d364d;
-  /* gray-900 */
-  --muted-foreground: #59729e;
-  /* gray-500 */
-  --success-text: #00f470;
-  /* brand-500 or success-400 */
-  --warning-text: #ffc72e;
-  /* warning-400 */
-  --info-text: #9cb3ff;
-  /* secondary-blue-300 */
-  --error-text: #ff8b8b;
-  /* error-300 */
+  --background: #0d1117;
+  --foreground: #f2f5f8;
+  --card: #161c24;
+  --card-foreground: #f2f5f8;
+  --surface: #161c24;
+  --elevated: #1b222c;
+  --elevated-hover: #242d39;
+  --border: rgba(255, 255, 255, 0.07);
+  --line-strong: rgba(255, 255, 255, 0.14);
+  --muted: #1b222c;
+  --muted-foreground: rgba(242, 245, 248, 0.48);
+  --subtle-foreground: rgba(242, 245, 248, 0.62);
+  --faint-foreground: rgba(242, 245, 248, 0.32);
+
+  --free: #3ddc84;
+  --busy: #4ca5ff;
+  --done: #ff9f45;
+  --off: #ff6b6b;
+  --on-brand: #07130c;
+
+  --header-gradient: linear-gradient(180deg, #131a22 0%, #0d1117 100%);
+  --scrim: rgba(6, 9, 13, 0.6);
 }
 
 html,
@@ -171,5 +245,19 @@ body {
   overflow-x: hidden;
   background-color: var(--background);
   color: var(--foreground);
+  -webkit-font-smoothing: antialiased;
   transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Numerals stay column-aligned as counters tick */
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+.header-surface {
+  background: var(--header-gradient);
+}
+
+.scrim {
+  background: var(--scrim);
 }

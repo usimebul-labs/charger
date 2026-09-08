@@ -3,6 +3,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { BottomNav } from "./_components/BottomNav";
+import { Toast } from "./_components/Toast";
 import "./globals.css";
 import Providers from "./providers";
 
@@ -37,17 +38,26 @@ export const viewport: Viewport = {
 export default function RootLayout({ children, }: Readonly<{ children: React.ReactNode; }>) {
   return (
     <html lang="ko">
+      <head>
+        {/* Pretendard — the mockup's typeface */}
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="" />
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+        />
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable} ${daki.variable} h-svh overflow-hidden`}>
         <SpeedInsights />
         <Analytics />
         <Providers>
-          <div className="h-svh bg-background flex justify-center selection:bg-brand-500/30 font-[family-name:var(--font-daki)]">
+          <div className="flex h-svh justify-center bg-background font-sans selection:bg-brand-500/30">
             {/* Mobile Frame Container */}
-            <div className="w-full max-w-[480px] h-svh bg-background border-x border-border/20 relative flex flex-col overflow-hidden">
-              <div className="flex-1 overflow-y-auto pb-[68px]">
+            <div className="relative flex h-svh w-full max-w-[480px] flex-col overflow-hidden border-x border-border bg-background">
+              <main className="flex min-h-0 flex-1 flex-col overflow-hidden">
                 {children}
-              </div>
+              </main>
               <BottomNav />
+              <Toast />
             </div>
           </div>
         </Providers>

@@ -38,3 +38,31 @@ yarn-error.log*
 *.pem
 
 .vercel
+
+# Logs
+*.log
+logs
+
+# Crash dumps (MSYS/Git Bash on Windows)
+*.stackdump
+core
+
+# Editors / IDE
+.idea
+.vscode
+*.swp
+*.swo
+
+# OS
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Caches
+.cache
+.eslintcache
+.pnpm-store

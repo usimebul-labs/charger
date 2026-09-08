@@ -1,27 +1,18 @@
-
-import { useStationStore } from "@/store/useStationStore";
-
-export const EmptyState = () => {
-  const { setShowOnlyAvailable } = useStationStore();
-
-  return (
-    <div className="flex flex-col items-center justify-center py-32 text-center">
-      <div className="relative mb-8">
-        <div className="absolute inset-0 bg-brand-500/10 rounded-full blur-2xl animate-pulse"></div>
-        <div className="relative bg-muted rounded-full w-24 h-24 flex items-center justify-center border border-border">
-          <svg className="w-12 h-12 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-          </svg>
-        </div>
-      </div>
-      <h3 className="text-xl font-black text-foreground tracking-tight">충전 가능한 스테이션이 없습니다.</h3>
-      <p className="text-muted-foreground text-sm mt-2 font-medium">충전 대기를 등록하시겠습니까?</p>
-      <button
-        onClick={() => setShowOnlyAvailable(false)}
-        className="mt-8 px-6 py-2.5 rounded-full border border-border text-foreground/80 tracking-widest uppercase hover:bg-muted transition-colors"
-      >
-        전체 보기
-      </button>
+export const EmptyState = () => (
+  <div className="flex flex-col items-center justify-center rounded-[15px] border border-border bg-surface px-10 py-14 text-center">
+    <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-[14px] border border-border bg-elevated">
+      <svg className="h-5 w-5 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.6} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+      </svg>
     </div>
-  );
-};
+
+    <p className="text-[15px] font-bold tracking-[-0.3px] text-foreground">
+      표시할 충전기가 없습니다
+    </p>
+    <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">
+      상단의 새로고침을 눌러
+      <br />
+      충전 현황을 다시 불러와 주세요.
+    </p>
+  </div>
+);

@@ -1,92 +1,85 @@
-import { ChargerInfo } from "../../../types/charger";
-import { StatusBadge } from "./StatusBadge";
-import { isAvailable } from "../_utils/charger";
+"use client";
+
 import { useStationStore } from "@/store/useStationStore";
+import { ChargerInfo } from "../../../types/charger";
+import {
+  CHARGER_TYPES,
+  formatShortDuration,
+  getChargerState,
+  minutesSince,
+  STATE_META,
+} from "../_utils/charger";
 
 interface StationCardProps {
   station: ChargerInfo;
   index: number;
 }
 
+/** Outline styles per state — free stalls are dashed, like an empty parking bay */
+const OUTLINE: Record<string, string> = {
+  free: "border-dashed border-free/45 bg-free/7",
+  busy: "border-solid border-border bg-foreground/3",
+  done: "border-solid border-border bg-foreground/3",
+  off: "border-solid border-border bg-foreground/3",
+};
+
+/** The 2px bumper across the top of the bay, coloured by state */
+const TOP_EDGE: Record<string, string> = {
+  free: "border-t-free",
+  busy: "border-t-busy",
+  done: "border-t-done",
+  off: "border-t-off",
+};
+
 export const StationCard = ({ station, index }: StationCardProps) => {
   const { setSelectedStation } = useStationStore();
-  const isRapid = station.type.code === "06";
-  const isAvailableStatus = isAvailable(station.status.code);
+  const state = getChargerState(station.status.code);
+  const meta = STATE_META[state];
+  const isRapid = station.type.code === CHARGER_TYPES.RAPID;
 
-  const typeConfig: Record<string, { accent: string; bg: string; border: string; glow: string }> = {
-    "06": {
-      accent: "text-warning-text",
-      bg: "from-warning-500/10 to-transparent",
-      border: "border-warning-500/20",
-      glow: "shadow-warning-500/5",
-    },
-    "02": {
-      accent: "text-info-text",
-      bg: "from-secondary-blue-500/10 to-transparent",
-      border: "border-secondary-blue-500/20",
-      glow: "shadow-secondary-blue-500/5",
-    }
-  };
-
-  let currentType = typeConfig[station.type.code];
-
-  const isWarningStatus = ["8", "9"].includes(station.status.code);
+  // 충전중·완료 상태에서만 경과 시간을 붙인다 (대기는 붙일 시간이 없다)
+  const elapsed = state === "free" ? null : minutesSince(station.lastStatusChangedAt);
+  const statusLabel = elapsed === null ? meta.label : `${meta.label} ${formatShortDuration(elapsed)}`;
 
   return (
-    <div
+    <button
+      type="button"
       onClick={() => setSelectedStation(station, index)}
       dir="ltr"
-      className={`relative bg-card/40 rounded-2xl p-3 sm:p-4 border backdrop-blur-3xl transition-all duration-500 overflow-hidden group flex flex-col items-center text-center cursor-pointer
-      ${isAvailableStatus
-          ? (isWarningStatus
-            ? `border-warning-500/40 bg-gradient-to-br ${currentType!.bg} shadow-[0_0_30px_-10px_rgba(249,162,7,0.2)] animate-in fade-in duration-1000`
-            : `border-success-500/40 bg-gradient-to-br ${currentType!.bg} shadow-[0_0_30px_-10px_rgba(0,242,38,0.2)] animate-in fade-in duration-1000`)
-          : `border-border hover:border-border/60`
-        }
-      hover:translate-y-[-6px] hover:shadow-2xl shadow-black/10 dark:shadow-black/40 active:scale-95
-    `}>
-      {/* Tap Indicator Hint */}
-      <div className="absolute top-2 left-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-        <div className="w-1.5 h-1.5 bg-white/20 rounded-full animate-ping"></div>
-      </div>
+      title={station.status.desc}
+      className={`relative flex cursor-pointer flex-col items-center justify-center gap-1 rounded-t-[3px] rounded-b-[11px]
+        border border-t-2 [border-top-style:solid] px-[3px] pb-2.5 pt-2 text-foreground transition-colors
+        hover:bg-elevated-hover/60 active:scale-[0.97] ${OUTLINE[state]} ${TOP_EDGE[state]}`}
+    >
+      {/* Charger post seated on the bumper */}
+      <span
+        className={`absolute -top-[2px] left-1/2 h-1 w-[22px] -translate-x-1/2 rounded-b-[3px] ${meta.bg}`}
+      />
 
-      {/* Themed Background Decoration */}
-      <div className={`absolute -top-10 -right-10 w-32 h-32 opacity-20 pointer-events-none transition-all duration-700 group-hover:scale-125 group-hover:opacity-30 ${currentType!.accent}`}>
-        {isRapid ? (
-          <svg fill="currentColor" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-        ) : (
-          <svg fill="currentColor" viewBox="0 0 24 24"><path d="M18 10V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h1v4h-2c-1.1 0-2 .9-2 2v2h14v-2c0-1.1-.9-2-2-2h-2v-4h1c1.1 0 2-.9 2-2z" /></svg>
-        )}
-      </div>
+      {/* 완속이 주력이라 배지를 더 강조하고, 급속은 보조 표기로 물러난다 */}
+      <span
+        className={`mt-[3px] rounded px-[5px] py-[2.5px] leading-none ${
+          isRapid
+            ? "text-[9px] font-semibold tracking-[-0.1px] text-faint-foreground"
+            : "border border-foreground/25 bg-foreground/8 text-[9.5px] font-extrabold tracking-[-0.1px] text-foreground"
+        }`}
+      >
+        {isRapid ? "급속" : "완속"}
+      </span>
 
-      <div className="flex flex-col items-center mb-2 relative z-10 w-full gap-1">
-        <span className="text-[10px] sm:text-[11px] font-bold text-muted-foreground tracking-widest uppercase">
-          ID {station.searchKey}
+      {/* 8자리 전체 번호 — 3자리만 쓰던 때보다 길어져 글자 크기·자간을 줄여 한 줄에 맞춘다 */}
+      <span className="tabular whitespace-nowrap text-[15px] font-extrabold leading-[1.05] tracking-[-0.5px]">
+        {station.searchKey}
+      </span>
+
+      <span className="flex items-center gap-[3px]">
+        <span className={`h-[5px] w-[5px] flex-none rounded-full ${meta.bg}`} />
+        <span
+          className={`tabular whitespace-nowrap text-[10px] font-semibold tracking-[-0.2px] ${meta.text}`}
+        >
+          {statusLabel}
         </span>
-      </div>
-
-      <div className="flex flex-col items-center gap-3 relative z-10">
-        <div className={`relative p-3 sm:p-4 rounded-2xl bg-muted/40 border-2 ${currentType!.border} ${currentType!.accent} shadow-2xl backdrop-blur-sm group-hover:scale-110 transition-all duration-500
-          ${isRapid ? 'shadow-warning-500/10' : 'shadow-secondary-blue-500/10'}
-        `}>
-          {/* Subtle glow behind the icon */}
-          <div className={`absolute inset-0 blur-xl opacity-30 ${isRapid ? 'bg-warning-500' : 'bg-secondary-blue-500'}`}></div>
-
-          <div className="relative z-10">
-            {isRapid ? (
-              <svg className="w-6 h-6 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
-            ) : (
-              <svg className="w-6 h-6 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M18 10V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h1v4h-2c-1.1 0-2 .9-2 2v2h14v-2c0-1.1-.9-2-2-2h-2v-4h1c1.1 0 2-.9 2-2z" />
-              </svg>
-            )}
-          </div>
-        </div>
-
-        <StatusBadge status={station.status} lastStatusChangedAt={station.lastStatusChangedAt} />
-      </div>
-    </div>
+      </span>
+    </button>
   );
 };
