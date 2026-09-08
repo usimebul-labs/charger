@@ -89,9 +89,12 @@ export const STATE_META: Record<ChargerState, StateMeta> = {
     },
 };
 
-/** `84` → `1시간 24분` */
-export const formatDuration = (minutes: number) =>
-    minutes >= 60 ? `${Math.floor(minutes / 60)}시간 ${minutes % 60}분` : `${minutes}분`;
+/** `84` → `1시간 24분`, `120` → `2시간` */
+export const formatDuration = (minutes: number) => {
+    if (minutes < 60) return `${minutes}분`;
+    const rest = minutes % 60;
+    return rest === 0 ? `${Math.floor(minutes / 60)}시간` : `${Math.floor(minutes / 60)}시간 ${rest}분`;
+};
 
 /** `84` → `1:24` — the compact form used inside a stall */
 export const formatShortDuration = (minutes: number) =>

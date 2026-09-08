@@ -119,6 +119,21 @@
   --color-subtle-foreground: var(--subtle-foreground);
   --color-faint-foreground: var(--faint-foreground);
 
+  /* Congestion ramp — sequential, one hue, light→dark (see StatisticsPage).
+     Steps are validated per mode: monotone lightness, adjacent ΔL ≥ 0.06,
+     and the near-zero end still clears 2:1 on its own surface. */
+  --color-heat-1: var(--heat-1);
+  --color-heat-2: var(--heat-2);
+  --color-heat-3: var(--heat-3);
+  --color-heat-4: var(--heat-4);
+  --color-heat-5: var(--heat-5);
+  --color-heat-empty: var(--heat-empty);
+  --color-heat-1-ink: var(--heat-1-ink);
+  --color-heat-2-ink: var(--heat-2-ink);
+  --color-heat-3-ink: var(--heat-3-ink);
+  --color-heat-4-ink: var(--heat-4-ink);
+  --color-heat-5-ink: var(--heat-5-ink);
+
   /* Charger states — the mockup's three-colour system */
   --color-free: var(--free);
   --color-busy: var(--busy);
@@ -207,6 +222,19 @@
   --off: #d93030;
   --on-brand: #07130c;
 
+  /* Congestion ramp — validated against the light card surface (#ffffff) */
+  --heat-1: #86b8f2;
+  --heat-2: #4f9ae8;
+  --heat-3: #2270c4;
+  --heat-4: #17538f;
+  --heat-5: #0d3660;
+  --heat-empty: #e7ebf0;
+  --heat-1-ink: #0b243f;
+  --heat-2-ink: #06182c;
+  --heat-3-ink: #ffffff;
+  --heat-4-ink: #ffffff;
+  --heat-5-ink: #ffffff;
+
   --header-gradient: linear-gradient(180deg, #ffffff 0%, #f4f6f8 100%);
   --scrim: rgba(21, 24, 28, 0.35);
 }
@@ -234,6 +262,20 @@
   --done: #ff9f45;
   --off: #ff6b6b;
   --on-brand: #07130c;
+
+  /* Congestion ramp — the anchor flips in dark: near-zero sits closest to the
+     surface, magnitude reads as brightness. Validated against #161c24. */
+  --heat-1: #35597f;
+  --heat-2: #2b74bd;
+  --heat-3: #3f97ec;
+  --heat-4: #7cc0ff;
+  --heat-5: #bfe0ff;
+  --heat-empty: #1e2732;
+  --heat-1-ink: #eaf2fb;
+  --heat-2-ink: #f2f8ff;
+  --heat-3-ink: #06182c;
+  --heat-4-ink: #06182c;
+  --heat-5-ink: #06182c;
 
   --header-gradient: linear-gradient(180deg, #131a22 0%, #0d1117 100%);
   --scrim: rgba(6, 9, 13, 0.6);
