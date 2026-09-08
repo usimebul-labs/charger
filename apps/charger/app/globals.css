@@ -291,6 +291,14 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* 모바일 탭 반응성 — 회색 하이라이트와 300ms 클릭 지연을 없앤다 */
+a,
+button,
+[role="button"] {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
 /* Numerals stay column-aligned as counters tick */
 .tabular {
   font-variant-numeric: tabular-nums;

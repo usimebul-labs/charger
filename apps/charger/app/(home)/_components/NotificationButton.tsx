@@ -28,6 +28,8 @@ const PlugIcon = () => (
 export const NotificationButton = () => {
     const { data: stations } = useStations();
     const showToast = useToastStore((s) => s.show);
+    const openSheet = useToastStore((s) => s.openSheet);
+    const closeSheet = useToastStore((s) => s.closeSheet);
     const [isOpen, setIsOpen] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
     const [isSupported, setIsSupported] = useState(false);
@@ -58,6 +60,13 @@ export const NotificationButton = () => {
         window.addEventListener("keydown", handleEsc);
         return () => window.removeEventListener("keydown", handleEsc);
     }, [isOpen, handleClose]);
+
+    // 시트가 떠 있는 동안에는 토스트가 시트 위로 올라오도록 알려준다
+    useEffect(() => {
+        if (!isOpen) return;
+        openSheet();
+        return closeSheet;
+    }, [isOpen, openSheet, closeSheet]);
 
     const options = useMemo(() => {
         const build = (type: ChargerTypeCode, label: string, icon: React.ReactNode, tone: string) => {

@@ -28,6 +28,8 @@ const Tile = ({ label, value }: { label: string; value: string }) => (
 export const StationMapModal = () => {
   const { selectedStation, selectedStationIndex, setSelectedStation } = useStationStore();
   const showToast = useToastStore((s) => s.show);
+  const openSheet = useToastStore((s) => s.openSheet);
+  const closeSheet = useToastStore((s) => s.closeSheet);
   const [isClosing, setIsClosing] = useState(false);
 
   const handleClose = useCallback(() => {
@@ -45,6 +47,13 @@ export const StationMapModal = () => {
     window.addEventListener("keydown", handleEsc);
     return () => window.removeEventListener("keydown", handleEsc);
   }, [handleClose]);
+
+  // 시트가 떠 있는 동안에는 토스트가 시트 위로 올라오도록 알려준다
+  useEffect(() => {
+    if (!selectedStation) return;
+    openSheet();
+    return closeSheet;
+  }, [selectedStation, openSheet, closeSheet]);
 
   if (!selectedStation) return null;
 

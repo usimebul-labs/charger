@@ -20,9 +20,10 @@ const FloorSkeleton = () => (
 );
 
 export const StationGrid = () => {
-  const { data: stations, isLoading, isError } = useStations();
+  const { data: stations, isPending } = useStations();
 
-  if (isLoading) {
+  // 스켈레톤은 보여줄 직전 데이터가 아예 없을 때만 — 갱신 중에는 기존 현황을 유지한다
+  if (isPending) {
     return (
       <div className="flex animate-pulse flex-col gap-2">
         {floors.map((floor) => (
@@ -32,7 +33,7 @@ export const StationGrid = () => {
     );
   }
 
-  if (isError || !stations) {
+  if (!stations) {
     return (
       <div className="rounded-[15px] border border-border bg-surface px-4 py-10 text-center">
         <p className="text-sm font-bold text-foreground">충전 현황을 불러오지 못했습니다</p>
